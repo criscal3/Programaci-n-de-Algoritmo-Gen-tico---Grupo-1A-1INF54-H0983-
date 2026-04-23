@@ -9,7 +9,7 @@ public class Main {
 
     public static boolean imprimirItinerarioDetallado(EnvioAlgoritmo envio, ResultadoRuta ruta, Map<String, 
         AeropuertoAlgoritmo> mapaAeropuertos, Map<String, Integer> capacidadesVuelos, Map<String, Integer> ocupacionAlmacenes) {
-        System.out.println("----------------------------------------------------------------------");
+        System.out.println("-".repeat(93));
         System.out.print("ENVÍO ID: " + envio.getId());
 
         String contOrigen = mapaAeropuertos.get(envio.getOrigenOaci()).getContinente();
@@ -100,7 +100,7 @@ public class Main {
         // Para NO definir fecha (comportamiento original), usar: null
         
         LocalDateTime fechaInicioSim = LocalDateTime.of(2026, 1, 1, 0, 0); // Ejemplo: Iniciar el 5 de Enero a medianoche
-        LocalDateTime fechaFinSim = LocalDateTime.of(2026, 1, 1, 23, 59);  // Ejemplo: Terminar el 7 de Enero a las 23:59
+        LocalDateTime fechaFinSim = LocalDateTime.of(2026, 1, 2, 0, 0);  // Ejemplo: Terminar el 7 de Enero a las 23:59
 
         // Le indicamos al lector desde dónde debe empezar
         lectorEnvios.configurarRangoTemporal(fechaInicioSim);
@@ -117,7 +117,8 @@ public class Main {
         // 6. El Bucle de Simulación
         while (lectorEnvios.hayMasEnvios() && !sistemaColapsado) {
             
-            if (fechaFinSim != null && horaBaseActual.isAfter(fechaFinSim)) break;
+            if (fechaFinSim != null && (lectorEnvios.getRelojSimulacion().isAfter(fechaFinSim) 
+                || lectorEnvios.getRelojSimulacion().isEqual(fechaFinSim))) break;
 
             List<EnvioAlgoritmo> enviosTurno = lectorEnvios.obtenerEnviosPorVentanaDeTiempo(saltoDeConsumoSc);
             
@@ -127,11 +128,11 @@ public class Main {
             LocalDateTime horaLimiteSc = lectorEnvios.getRelojSimulacion();
 
             // ENCABEZADO
-            System.out.println("\n" + "=".repeat(70));
+            System.out.println("\n" + "=".repeat(93));
             System.out.println(" [Iteración " + iteracion + "]");
             System.out.println(" FECHA/HORA PLANIFICACIÓN (Sa): " + horaEjecucionSa.format(fmt));
             System.out.println(" FECHA/HORA CONSUMO HASTA (Sc): " + horaLimiteSc.format(fmt));
-            System.out.println("=".repeat(70));
+            System.out.println("=".repeat(93));
             
             if (!enviosTurno.isEmpty()) {
                 
