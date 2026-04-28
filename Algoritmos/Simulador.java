@@ -296,15 +296,22 @@ public class Simulador {
                   .append(" | Llegada: ").append(ruta.tiempoLlegadaFinal.format(FMT)).append("\n");
                 sb.append("Ruta (").append(ruta.vuelosUsados.size()).append(" vuelos):\n");
 
+                Map<String, Integer> capVuelosSol   = solucion.getEstadoCapacidadesVuelos();
+                Map<String, Integer> ocupAlmacenSol = solucion.getEstadoOcupacionAlmacenes();
+
                 for (int i = 0; i < ruta.vuelosUsados.size(); i++) {
                     VueloAlgoritmo v      = ruta.vuelosUsados.get(i);
                     LocalDateTime  salida = ruta.fechasVuelo.get(i);
 
-                    // Snapshots guardados en el momento de la asignación
-                    int capUsada   = (ruta.capacidadUsadaVuelo != null && i < ruta.capacidadUsadaVuelo.size())
-                            ? ruta.capacidadUsadaVuelo.get(i) : 0;
-                    int usoAlmacen = (ruta.ocupacionAlmacenOrigen != null && i < ruta.ocupacionAlmacenOrigen.size())
-                            ? ruta.ocupacionAlmacenOrigen.get(i) : 0;
+                    String claveV   = v.getOrigenOaci() + "-" + v.getDestinoOaci()
+                            + "-" + v.getHoraSalida() + "-" + salida.toLocalDate();
+                    int capRestante = capVuelosSol.getOrDefault(claveV, v.getCapacidad());
+                    int capUsada    = v.getCapacidad() - capRestante;
+
+                    String claveA  = v.getOrigenOaci()
+                            + "-" + salida.toLocalDate()
+                            + "-" + salida.getHour();
+                    int usoAlmacen = ocupAlmacenSol.getOrDefault(claveA, 0);
 
                     AeropuertoAlgoritmo aeroOrigen = mapaAeropuertos.get(v.getOrigenOaci());
                     int capAlmacen = aeroOrigen != null ? aeroOrigen.getCapacidadAlmacen() : 0;
@@ -401,15 +408,22 @@ public class Simulador {
                         pw.printf("    Tiempo : %dh %dm | SLA: %dh | Llegada: %s%n",
                                 h, m, lim, ruta.tiempoLlegadaFinal.format(FMT));
                         pw.println("    Ruta:");
+                        Map<String, Integer> capVuelosSol   = sol.getEstadoCapacidadesVuelos();
+                        Map<String, Integer> ocupAlmacenSol = sol.getEstadoOcupacionAlmacenes();
+
                         for (int i = 0; i < ruta.vuelosUsados.size(); i++) {
                             VueloAlgoritmo v     = ruta.vuelosUsados.get(i);
                             LocalDateTime  salida = ruta.fechasVuelo.get(i);
 
-                            // Snapshots guardados en el momento de la asignación
-                            int capUsada   = (ruta.capacidadUsadaVuelo != null && i < ruta.capacidadUsadaVuelo.size())
-                                    ? ruta.capacidadUsadaVuelo.get(i) : 0;
-                            int usoAlmacen = (ruta.ocupacionAlmacenOrigen != null && i < ruta.ocupacionAlmacenOrigen.size())
-                                    ? ruta.ocupacionAlmacenOrigen.get(i) : 0;
+                            String claveV   = v.getOrigenOaci() + "-" + v.getDestinoOaci()
+                                    + "-" + v.getHoraSalida() + "-" + salida.toLocalDate();
+                            int capRestante = capVuelosSol.getOrDefault(claveV, v.getCapacidad());
+                            int capUsada    = v.getCapacidad() - capRestante;
+
+                            String claveA  = v.getOrigenOaci()
+                                    + "-" + salida.toLocalDate()
+                                    + "-" + salida.getHour();
+                            int usoAlmacen = ocupAlmacenSol.getOrDefault(claveA, 0);
 
                             AeropuertoAlgoritmo aero = mapaAeropuertos.get(v.getOrigenOaci());
                             int capAlmacen = aero != null ? aero.getCapacidadAlmacen() : 0;

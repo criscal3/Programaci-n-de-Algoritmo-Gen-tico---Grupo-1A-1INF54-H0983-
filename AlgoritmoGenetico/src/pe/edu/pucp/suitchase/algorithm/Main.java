@@ -90,8 +90,8 @@ public class Main {
         AlgoritmoGenetico ag = new AlgoritmoGenetico(vuelos, mapaAeropuertos);
 
         // 5. Iniciar la Simulación del Tiempo
-        int saltoDeAlgoritmo = 60*24; // El sistema planifica cada Sa minutos
-        int k = 30; // Constante de proporcionalidad
+        int saltoDeAlgoritmo = 60; // El sistema planifica cada Sa minutos
+        int k = 1; // Constante de proporcionalidad
         int saltoDeConsumoSc = saltoDeAlgoritmo * k; // Sc minutos de ventana temporal
         int tiempoDeAlgoritmo = 10; // El algoritmo genético durará un máximo de Ta segundos por iteración
 
@@ -99,8 +99,8 @@ public class Main {
         // Para definir fecha usar: LocalDateTime.of(Año, Mes, Día, Hora, Minuto)
         // Para NO definir fecha (comportamiento original), usar: null
         
-        LocalDateTime fechaInicioSim = LocalDateTime.of(2026, 1, 1, 0, 0); // Ejemplo: Iniciar el 5 de Enero a medianoche
-        LocalDateTime fechaFinSim = LocalDateTime.of(2027, 1, 1, 0, 0);  // Ejemplo: Terminar el 7 de Enero a las 23:59
+        LocalDateTime fechaInicioSim = LocalDateTime.of(2026, 1, 2, 0, 0); // Ejemplo: Iniciar el 5 de Enero a medianoche
+        LocalDateTime fechaFinSim = LocalDateTime.of(2026, 1, 3, 0, 0);  // Ejemplo: Terminar el 7 de Enero a las 23:59
 
         // Le indicamos al lector desde dónde debe empezar
         lectorEnvios.configurarRangoTemporal(fechaInicioSim);

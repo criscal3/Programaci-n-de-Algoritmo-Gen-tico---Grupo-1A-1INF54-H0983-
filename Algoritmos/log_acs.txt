@@ -1,522 +1,567 @@
-[2026-04-28 00:15:13] === LOGGER INICIALIZADO ===
-[2026-04-28 00:15:13] ================================================================================
-[2026-04-28 00:15:13] SIMULACIÓN ACS INICIADA
-[2026-04-28 00:15:13] Parámetros: Sa=60min | k=1 | Sc=60min | Ta=10s
-[2026-04-28 00:15:13] --- 1. CARGANDO AEROPUERTOS ---
-[2026-04-28 00:15:13] Aeropuertos cargados: 30
-[2026-04-28 00:15:13] --- 2. CARGANDO VUELOS ---
-[2026-04-28 00:15:13] Vuelos cargados: 2866
-[2026-04-28 00:15:13] --- 3. CARGANDO ENVÍOS ---
-[2026-04-28 00:15:22] --- INICIANDO SIMULACIÓN - ALGORITMO: ACS ---
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 1] Sa=01/01/2026 01:00 | Sc=01/01/2026 01:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 2] Sa=01/01/2026 02:00 | Sc=01/01/2026 02:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 3] Sa=01/01/2026 03:00 | Sc=01/01/2026 03:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 4] Sa=01/01/2026 04:00 | Sc=01/01/2026 04:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 5] Sa=01/01/2026 05:00 | Sc=01/01/2026 05:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 6] Sa=01/01/2026 06:00 | Sc=01/01/2026 06:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 7] Sa=01/01/2026 07:00 | Sc=01/01/2026 07:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 8] Sa=01/01/2026 08:00 | Sc=01/01/2026 08:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 9] Sa=01/01/2026 09:00 | Sc=01/01/2026 09:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 10] Sa=01/01/2026 10:00 | Sc=01/01/2026 10:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 11] Sa=01/01/2026 11:00 | Sc=01/01/2026 11:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 12] Sa=01/01/2026 12:00 | Sc=01/01/2026 12:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 13] Sa=01/01/2026 13:00 | Sc=01/01/2026 13:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 14] Sa=01/01/2026 14:00 | Sc=01/01/2026 14:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 15] Sa=01/01/2026 15:00 | Sc=01/01/2026 15:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 16] Sa=01/01/2026 16:00 | Sc=01/01/2026 16:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 17] Sa=01/01/2026 17:00 | Sc=01/01/2026 17:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 18] Sa=01/01/2026 18:00 | Sc=01/01/2026 18:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 19] Sa=01/01/2026 19:00 | Sc=01/01/2026 19:00
-[2026-04-28 00:15:22] Sin envíos en este lapso.
-[2026-04-28 00:15:22] ================================================================================
-[2026-04-28 00:15:22] [Iteración 20] Sa=01/01/2026 20:00 | Sc=01/01/2026 20:00
-[2026-04-28 00:15:22] Envíos bloque: 2 | Maletas: 4
-[2026-04-28 00:15:22] ACS - Solución inicial FIFO construida.
-[2026-04-28 00:15:32] Algoritmo ejecutado en 10018ms | Métrica: 2031.5000
-[2026-04-28 00:15:32] >>> REPORTE DE RUTAS ASIGNADAS - Iteración 20 <<<
-[2026-04-28 00:15:32] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | OPKC (Asia) -> EDDI (Europa) | 2 maletas
-Registro: 01/01/2026 19:52 | SLA: 48h
+[2026-04-28 08:42:17] === LOGGER INICIALIZADO ===
+[2026-04-28 08:42:17] ================================================================================
+[2026-04-28 08:42:17] SIMULACIÓN ACS INICIADA
+[2026-04-28 08:42:17] Parámetros: Sa=60min | k=1 | Sc=60min | Ta=10s
+[2026-04-28 08:42:17] --- 1. CARGANDO AEROPUERTOS ---
+[2026-04-28 08:42:17] Aeropuertos cargados: 30
+[2026-04-28 08:42:17] --- 2. CARGANDO VUELOS ---
+[2026-04-28 08:42:17] Vuelos cargados: 2866
+[2026-04-28 08:42:17] --- 3. CARGANDO ENVÍOS ---
+[2026-04-28 08:42:27] --- INICIANDO SIMULACIÓN - ALGORITMO: ACS ---
+[2026-04-28 08:42:27] ================================================================================
+[2026-04-28 08:42:27] [Iteración 1] Sa=02/01/2026 01:00 | Sc=02/01/2026 01:00
+[2026-04-28 08:42:27] Envíos bloque: 19 | Maletas: 36
+[2026-04-28 08:42:27] ACS - Solución inicial FIFO construida.
+[2026-04-28 08:42:37] Algoritmo ejecutado en 10096ms | Métrica: 0.4140
+[2026-04-28 08:42:37] >>> REPORTE DE RUTAS ASIGNADAS - Iteración 1 <<<
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000003 | OSDI (Asia) -> LATI (Europa) | 2 maletas
+Registro: 02/01/2026 00:01 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 43h 58m | Llegada: 03/01/2026 15:50
-Ruta (3 vuelos):
-  (1) OPKC -> OSDI | Salida: 02:22 | Llegada: 06:21 | Vuelo: 0/360 | Almacén OPKC: 2/410
-  (2) OSDI -> OJAI | Salida: 06:00 | Llegada: 06:18 | Vuelo: 0/360 | Almacén OSDI: 2/400
-  (3) OJAI -> EDDI | Salida: 11:58 | Llegada: 15:40 | Vuelo: 0/360 | Almacén OJAI: 2/400
-
-[2026-04-28 00:15:32] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | VIDP (Asia) -> OSDI (Asia) | 2 maletas
-Registro: 01/01/2026 19:53 | SLA: 24h
-ESTADO: [OK] A TIEMPO
-Tiempo real: 23h 45m | Llegada: 02/01/2026 19:38
-Ruta (5 vuelos):
-  (1) VIDP -> OPKC | Salida: 05:06 | Llegada: 06:28 | Vuelo: 0/340 | Almacén VIDP: 2/480
-  (2) OPKC -> OOMS | Salida: 10:25 | Llegada: 11:34 | Vuelo: 0/300 | Almacén OPKC: 2/410
-  (3) OOMS -> OMDB | Salida: 14:42 | Llegada: 15:10 | Vuelo: 0/320 | Almacén OOMS: 2/460
-  (4) OMDB -> OERK | Salida: 15:23 | Llegada: 16:32 | Vuelo: 0/300 | Almacén OMDB: 2/420
-  (5) OERK -> OSDI | Salida: 17:43 | Llegada: 19:28 | Vuelo: 0/360 | Almacén OERK: 2/420
-
-[2026-04-28 00:15:32] ================================================================================
-[2026-04-28 00:15:32] [Iteración 21] Sa=01/01/2026 21:00 | Sc=01/01/2026 21:00
-[2026-04-28 00:15:32] Envíos bloque: 4 | Maletas: 8
-[2026-04-28 00:15:32] ACS - Solución inicial FIFO construida.
-[2026-04-28 00:15:42] Algoritmo ejecutado en 10004ms | Métrica: 1852.7500
-[2026-04-28 00:15:42] >>> REPORTE DE RUTAS ASIGNADAS - Iteración 21 <<<
-[2026-04-28 00:15:42] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | OPKC (Asia) -> SLLP (America) | 2 maletas
-Registro: 01/01/2026 20:41 | SLA: 48h
-ESTADO: [OK] A TIEMPO
-Tiempo real: 43h 9m | Llegada: 03/01/2026 15:50
+Tiempo real: 24h 10m | Llegada: 03/01/2026 00:11
 Ruta (1 vuelos):
-  (1) OPKC -> SLLP | Salida: 20:29 | Llegada: 15:40 | Vuelo: 0/360 | Almacén OPKC: 2/410
+  (1) OSDI -> LATI | Salida: 21:50 | Llegada: 00:01 | Vuelo: 2/300 | Almacén OSDI: 2/400
 
-[2026-04-28 00:15:42] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | OAKB (Asia) -> LKPR (Europa) | 2 maletas
-Registro: 01/01/2026 20:46 | SLA: 48h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000002 | LKPR (Europa) -> SPIM (America) | 2 maletas
+Registro: 02/01/2026 00:02 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 9h 27m | Llegada: 02/01/2026 06:13
+Tiempo real: 14h 15m | Llegada: 02/01/2026 14:17
 Ruta (1 vuelos):
-  (1) OAKB -> LKPR | Salida: 00:04 | Llegada: 06:03 | Vuelo: 0/340 | Almacén OAKB: 2/480
+  (1) LKPR -> SPIM | Salida: 00:10 | Llegada: 14:07 | Vuelo: 2/360 | Almacén LKPR: 2/400
 
-[2026-04-28 00:15:42] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | OOMS (Asia) -> SLLP (America) | 2 maletas
-Registro: 01/01/2026 20:49 | SLA: 48h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000002 | EKCH (Europa) -> SCEL (America) | 2 maletas
+Registro: 02/01/2026 00:05 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 41h 37m | Llegada: 03/01/2026 14:26
+Tiempo real: 38h 34m | Llegada: 03/01/2026 14:39
 Ruta (1 vuelos):
-  (1) OOMS -> SLLP | Salida: 20:15 | Llegada: 14:16 | Vuelo: 0/300 | Almacén OOMS: 2/460
+  (1) EKCH -> SCEL | Salida: 22:47 | Llegada: 14:29 | Vuelo: 2/320 | Almacén EKCH: 2/480
 
-[2026-04-28 00:15:42] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | VIDP (Asia) -> UMMS (Europa) | 2 maletas
-Registro: 01/01/2026 20:50 | SLA: 48h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000003 | OYSN (Asia) -> OPKC (Asia) | 2 maletas
+Registro: 02/01/2026 00:09 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 29h 18m | Llegada: 03/01/2026 02:08
+Tiempo real: 9h 27m | Llegada: 02/01/2026 09:36
 Ruta (1 vuelos):
-  (1) VIDP -> UMMS | Salida: 19:52 | Llegada: 01:58 | Vuelo: 0/320 | Almacén VIDP: 2/480
+  (1) OYSN -> OPKC | Salida: 06:10 | Llegada: 09:26 | Vuelo: 2/320 | Almacén OYSN: 2/420
 
-[2026-04-28 00:15:42] ================================================================================
-[2026-04-28 00:15:42] [Iteración 22] Sa=01/01/2026 22:00 | Sc=01/01/2026 22:00
-[2026-04-28 00:15:42] Envíos bloque: 8 | Maletas: 16
-[2026-04-28 00:15:42] ACS - Solución inicial FIFO construida.
-[2026-04-28 00:15:52] Algoritmo ejecutado en 10003ms | Métrica: 728.7500
-[2026-04-28 00:15:52] >>> REPORTE DE RUTAS ASIGNADAS - Iteración 22 <<<
-[2026-04-28 00:15:52] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | OMDB (Asia) -> OJAI (Asia) | 3 maletas
-Registro: 01/01/2026 21:16 | SLA: 24h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000003 | LATI (Europa) -> OOMS (Asia) | 1 maletas
+Registro: 02/01/2026 00:19 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 4h 28m | Llegada: 02/01/2026 01:44
+Tiempo real: 10h 43m | Llegada: 02/01/2026 11:02
 Ruta (1 vuelos):
-  (1) OMDB -> OJAI | Salida: 22:58 | Llegada: 01:34 | Vuelo: 0/300 | Almacén OMDB: 3/420
+  (1) LATI -> OOMS | Salida: 05:40 | Llegada: 10:52 | Vuelo: 1/320 | Almacén LATI: 1/410
 
-[2026-04-28 00:15:52] --------------------------------------------------------------------------------
-ENVÍO: 000000003 | OPKC (Asia) -> SGAS (America) | 1 maletas
-Registro: 01/01/2026 21:19 | SLA: 48h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000003 | EBCI (Europa) -> LOWW (Europa) | 1 maletas
+Registro: 02/01/2026 00:20 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 20h 16m | Llegada: 02/01/2026 17:35
+Tiempo real: 6h 8m | Llegada: 02/01/2026 06:28
 Ruta (1 vuelos):
-  (1) OPKC -> SGAS | Salida: 23:19 | Llegada: 17:25 | Vuelo: 0/340 | Almacén OPKC: 5/410
+  (1) EBCI -> LOWW | Salida: 05:10 | Llegada: 06:18 | Vuelo: 1/320 | Almacén EBCI: 1/440
 
-[2026-04-28 00:15:52] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | OAKB (Asia) -> VIDP (Asia) | 2 maletas
-Registro: 01/01/2026 21:33 | SLA: 24h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000003 | EDDI (Europa) -> OYSN (Asia) | 1 maletas
+Registro: 02/01/2026 00:20 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 3h 19m | Llegada: 02/01/2026 00:52
+Tiempo real: 8h 39m | Llegada: 02/01/2026 08:59
 Ruta (1 vuelos):
-  (1) OAKB -> VIDP | Salida: 23:26 | Llegada: 00:42 | Vuelo: 0/300 | Almacén OAKB: 4/480
+  (1) EDDI -> OYSN | Salida: 02:36 | Llegada: 08:49 | Vuelo: 1/320 | Almacén EDDI: 1/480
 
-[2026-04-28 00:15:52] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | OOMS (Asia) -> SABE (America) | 2 maletas
-Registro: 01/01/2026 21:40 | SLA: 48h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | LBSF (Europa) -> SLLP (America) | 2 maletas
+Registro: 02/01/2026 00:20 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 20h 23m | Llegada: 02/01/2026 18:03
+Tiempo real: 18h 30m | Llegada: 02/01/2026 18:50
 Ruta (1 vuelos):
-  (1) OOMS -> SABE | Salida: 00:36 | Llegada: 17:53 | Vuelo: 0/360 | Almacén OOMS: 4/460
+  (1) LBSF -> SLLP | Salida: 04:30 | Llegada: 18:40 | Vuelo: 2/360 | Almacén LBSF: 2/400
 
-[2026-04-28 00:15:52] --------------------------------------------------------------------------------
-ENVÍO: 000000003 | VIDP (Asia) -> OPKC (Asia) | 2 maletas
-Registro: 01/01/2026 21:40 | SLA: 24h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000002 | UBBB (Asia) -> OSDI (Asia) | 3 maletas
+Registro: 02/01/2026 00:22 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 8h 58m | Llegada: 02/01/2026 06:38
+Tiempo real: 23h 39m | Llegada: 03/01/2026 00:01
 Ruta (1 vuelos):
-  (1) VIDP -> OPKC | Salida: 05:06 | Llegada: 06:28 | Vuelo: 338/340 | Almacén VIDP: 6/480
+  (1) UBBB -> OSDI | Salida: 22:00 | Llegada: 23:51 | Vuelo: 3/340 | Almacén UBBB: 3/400
 
-[2026-04-28 00:15:52] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | LBSF (Europa) -> OAKB (Asia) | 2 maletas
-Registro: 01/01/2026 21:55 | SLA: 48h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000006 | VIDP (Asia) -> OMDB (Asia) | 2 maletas
+Registro: 02/01/2026 00:25 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 5h 30m | Llegada: 02/01/2026 03:25
+Tiempo real: 7h 4m | Llegada: 02/01/2026 07:29
 Ruta (1 vuelos):
-  (1) LBSF -> OAKB | Salida: 22:08 | Llegada: 03:15 | Vuelo: 0/300 | Almacén LBSF: 2/400
+  (1) VIDP -> OMDB | Salida: 04:33 | Llegada: 07:19 | Vuelo: 2/320 | Almacén VIDP: 2/480
 
-[2026-04-28 00:15:52] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | OERK (Asia) -> LKPR (Europa) | 2 maletas
-Registro: 01/01/2026 21:55 | SLA: 48h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000003 | LDZA (Europa) -> SPIM (America) | 2 maletas
+Registro: 02/01/2026 00:26 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 28h 40m | Llegada: 03/01/2026 02:35
+Tiempo real: 36h 24m | Llegada: 03/01/2026 12:50
 Ruta (1 vuelos):
-  (1) OERK -> LKPR | Salida: 21:24 | Llegada: 02:25 | Vuelo: 0/320 | Almacén OERK: 2/420
+  (1) LDZA -> SPIM | Salida: 22:36 | Llegada: 12:40 | Vuelo: 2/320 | Almacén LDZA: 2/420
 
-[2026-04-28 00:15:52] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | UMMS (Europa) -> LATI (Europa) | 2 maletas
-Registro: 01/01/2026 21:56 | SLA: 24h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000002 | LOWW (Europa) -> EDDI (Europa) | 3 maletas
+Registro: 02/01/2026 00:26 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 5h 36m | Llegada: 02/01/2026 03:32
+Tiempo real: 3h 30m | Llegada: 02/01/2026 03:56
 Ruta (1 vuelos):
-  (1) UMMS -> LATI | Salida: 01:30 | Llegada: 03:22 | Vuelo: 0/320 | Almacén UMMS: 2/400
+  (1) LOWW -> EDDI | Salida: 03:09 | Llegada: 03:46 | Vuelo: 3/360 | Almacén LOWW: 3/430
 
-[2026-04-28 00:15:52] ================================================================================
-[2026-04-28 00:15:52] [Iteración 23] Sa=01/01/2026 23:00 | Sc=01/01/2026 23:00
-[2026-04-28 00:15:52] Envíos bloque: 16 | Maletas: 31
-[2026-04-28 00:15:52] ACS - Solución inicial FIFO construida.
-[2026-04-28 00:16:02] Algoritmo ejecutado en 10020ms | Métrica: 1044.7500
-[2026-04-28 00:16:02] >>> REPORTE DE RUTAS ASIGNADAS - Iteración 23 <<<
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000004 | OPKC (Asia) -> SUAA (America) | 1 maletas
-Registro: 01/01/2026 22:06 | SLA: 48h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000007 | OPKC (Asia) -> LATI (Europa) | 1 maletas
+Registro: 02/01/2026 00:26 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 19h 16m | Llegada: 02/01/2026 17:22
+Tiempo real: 25h 45m | Llegada: 03/01/2026 02:11
 Ruta (1 vuelos):
-  (1) OPKC -> SUAA | Salida: 23:03 | Llegada: 17:12 | Vuelo: 0/360 | Almacén OPKC: 6/410
+  (1) OPKC -> LATI | Salida: 19:58 | Llegada: 02:01 | Vuelo: 1/360 | Almacén OPKC: 1/410
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | OSDI (Asia) -> SCEL (America) | 2 maletas
-Registro: 01/01/2026 22:06 | SLA: 48h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000002 | EHAM (Europa) -> OSDI (Asia) | 3 maletas
+Registro: 02/01/2026 00:27 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 20h 52m | Llegada: 02/01/2026 18:58
+Tiempo real: 8h 15m | Llegada: 02/01/2026 08:42
 Ruta (1 vuelos):
-  (1) OSDI -> SCEL | Salida: 02:06 | Llegada: 18:48 | Vuelo: 0/320 | Almacén OSDI: 2/400
+  (1) EHAM -> OSDI | Salida: 04:22 | Llegada: 08:32 | Vuelo: 3/320 | Almacén EHAM: 3/480
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | OYSN (Asia) -> EHAM (Europa) | 2 maletas
-Registro: 01/01/2026 22:08 | SLA: 48h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | UMMS (Europa) -> LBSF (Europa) | 2 maletas
+Registro: 02/01/2026 00:32 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 13h 18m | Llegada: 02/01/2026 11:26
+Tiempo real: 9h 0m | Llegada: 02/01/2026 09:32
 Ruta (1 vuelos):
-  (1) OYSN -> EHAM | Salida: 04:27 | Llegada: 11:16 | Vuelo: 0/320 | Almacén OYSN: 2/420
+  (1) UMMS -> LBSF | Salida: 07:46 | Llegada: 09:22 | Vuelo: 2/340 | Almacén UMMS: 2/400
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000003 | OOMS (Asia) -> VIDP (Asia) | 1 maletas
-Registro: 01/01/2026 22:21 | SLA: 24h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000006 | OAKB (Asia) -> LATI (Europa) | 1 maletas
+Registro: 02/01/2026 00:39 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 5h 51m | Llegada: 02/01/2026 04:12
+Tiempo real: 11h 5m | Llegada: 02/01/2026 11:44
 Ruta (1 vuelos):
-  (1) OOMS -> VIDP | Salida: 01:33 | Llegada: 04:02 | Vuelo: 0/340 | Almacén OOMS: 3/460
+  (1) OAKB -> LATI | Salida: 06:01 | Llegada: 11:34 | Vuelo: 1/300 | Almacén OAKB: 1/480
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | OJAI (Asia) -> SBBR (America) | 4 maletas
-Registro: 01/01/2026 22:22 | SLA: 48h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | OERK (Asia) -> SUAA (America) | 2 maletas
+Registro: 02/01/2026 00:44 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 13h 2m | Llegada: 02/01/2026 11:24
+Tiempo real: 16h 48m | Llegada: 02/01/2026 17:32
 Ruta (1 vuelos):
-  (1) OJAI -> SBBR | Salida: 22:30 | Llegada: 11:14 | Vuelo: 0/300 | Almacén OJAI: 4/400
+  (1) OERK -> SUAA | Salida: 01:37 | Llegada: 17:22 | Vuelo: 2/320 | Almacén OERK: 2/420
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000003 | OAKB (Asia) -> UBBB (Asia) | 1 maletas
-Registro: 01/01/2026 22:25 | SLA: 24h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000006 | OOMS (Asia) -> SGAS (America) | 1 maletas
+Registro: 02/01/2026 00:45 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 5h 49m | Llegada: 02/01/2026 04:14
+Tiempo real: 39h 20m | Llegada: 03/01/2026 16:05
 Ruta (1 vuelos):
-  (1) OAKB -> UBBB | Salida: 01:48 | Llegada: 04:04 | Vuelo: 0/320 | Almacén OAKB: 1/480
+  (1) OOMS -> SGAS | Salida: 22:58 | Llegada: 15:55 | Vuelo: 1/340 | Almacén OOMS: 1/460
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | OMDB (Asia) -> LATI (Europa) | 3 maletas
-Registro: 01/01/2026 22:29 | SLA: 48h
+[2026-04-28 08:42:37] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | OMDB (Asia) -> EHAM (Europa) | 3 maletas
+Registro: 02/01/2026 00:51 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 5h 30m | Llegada: 02/01/2026 03:59
+Tiempo real: 7h 29m | Llegada: 02/01/2026 08:20
 Ruta (1 vuelos):
-  (1) OMDB -> LATI | Salida: 23:05 | Llegada: 03:49 | Vuelo: 0/340 | Almacén OMDB: 3/420
+  (1) OMDB -> EHAM | Salida: 01:37 | Llegada: 08:10 | Vuelo: 3/300 | Almacén OMDB: 3/420
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000004 | VIDP (Asia) -> EBCI (Europa) | 2 maletas
-Registro: 01/01/2026 22:38 | SLA: 48h
+[2026-04-28 08:42:37] ================================================================================
+[2026-04-28 08:42:37] [Iteración 2] Sa=02/01/2026 02:00 | Sc=02/01/2026 02:00
+[2026-04-28 08:42:37] Envíos bloque: 25 | Maletas: 38
+[2026-04-28 08:42:37] ACS - Solución inicial FIFO construida.
+[2026-04-28 08:42:47] Algoritmo ejecutado en 10076ms | Métrica: 0.4557
+[2026-04-28 08:42:47] >>> REPORTE DE RUTAS ASIGNADAS - Iteración 2 <<<
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | OYSN (Asia) -> OMDB (Asia) | 2 maletas
+Registro: 02/01/2026 01:01 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 29h 7m | Llegada: 03/01/2026 03:45
+Tiempo real: 6h 28m | Llegada: 02/01/2026 07:29
 Ruta (1 vuelos):
-  (1) VIDP -> EBCI | Salida: 19:26 | Llegada: 03:35 | Vuelo: 0/360 | Almacén VIDP: 4/480
+  (1) OYSN -> OMDB | Salida: 05:19 | Llegada: 07:19 | Vuelo: 2/300 | Almacén OYSN: 4/420
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | LBSF (Europa) -> SKBO (America) | 2 maletas
-Registro: 01/01/2026 22:41 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | OSDI (Asia) -> OYSN (Asia) | 2 maletas
+Registro: 02/01/2026 01:02 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 18h 0m | Llegada: 02/01/2026 16:41
+Tiempo real: 5h 50m | Llegada: 02/01/2026 06:52
 Ruta (1 vuelos):
-  (1) LBSF -> SKBO | Salida: 03:35 | Llegada: 16:31 | Vuelo: 0/320 | Almacén LBSF: 2/400
+  (1) OSDI -> OYSN | Salida: 04:00 | Llegada: 06:42 | Vuelo: 2/360 | Almacén OSDI: 4/400
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | EBCI (Europa) -> SUAA (America) | 2 maletas
-Registro: 01/01/2026 22:47 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000003 | OJAI (Asia) -> OERK (Asia) | 3 maletas
+Registro: 02/01/2026 01:03 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 37h 18m | Llegada: 03/01/2026 12:05
+Tiempo real: 24h 9m | Llegada: 03/01/2026 01:12
 Ruta (1 vuelos):
-  (1) EBCI -> SUAA | Salida: 22:02 | Llegada: 11:55 | Vuelo: 0/340 | Almacén EBCI: 2/440
+  (1) OJAI -> OERK | Salida: 23:22 | Llegada: 01:02 | Vuelo: 3/300 | Almacén OJAI: 3/400
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | LATI (Europa) -> OPKC (Asia) | 2 maletas
-Registro: 01/01/2026 22:48 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | LATI (Europa) -> SVMI (America) | 1 maletas
+Registro: 02/01/2026 01:04 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 7h 48m | Llegada: 02/01/2026 06:36
+Tiempo real: 35h 3m | Llegada: 03/01/2026 12:07
 Ruta (1 vuelos):
-  (1) LATI -> OPKC | Salida: 00:23 | Llegada: 06:26 | Vuelo: 0/300 | Almacén LATI: 2/410
+  (1) LATI -> SVMI | Salida: 00:48 | Llegada: 11:57 | Vuelo: 1/340 | Almacén LATI: 1/410
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | EDDI (Europa) -> SUAA (America) | 2 maletas
-Registro: 01/01/2026 22:49 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000003 | LKPR (Europa) -> SBBR (America) | 2 maletas
+Registro: 02/01/2026 01:07 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 16h 56m | Llegada: 02/01/2026 15:45
+Tiempo real: 13h 7m | Llegada: 02/01/2026 14:14
 Ruta (1 vuelos):
-  (1) EDDI -> SUAA | Salida: 00:55 | Llegada: 15:35 | Vuelo: 0/320 | Almacén EDDI: 2/480
+  (1) LKPR -> SBBR | Salida: 02:18 | Llegada: 14:04 | Vuelo: 2/300 | Almacén LKPR: 2/400
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | UMMS (Europa) -> SLLP (America) | 2 maletas
-Registro: 01/01/2026 22:51 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | EBCI (Europa) -> EKCH (Europa) | 1 maletas
+Registro: 02/01/2026 01:08 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 24h 58m | Llegada: 02/01/2026 23:49
+Tiempo real: 8h 47m | Llegada: 02/01/2026 09:55
 Ruta (1 vuelos):
-  (1) UMMS -> SLLP | Salida: 08:47 | Llegada: 23:39 | Vuelo: 0/340 | Almacén UMMS: 2/400
+  (1) EBCI -> EKCH | Salida: 08:47 | Llegada: 09:45 | Vuelo: 1/340 | Almacén EBCI: 2/440
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | LDZA (Europa) -> OSDI (Asia) | 2 maletas
-Registro: 01/01/2026 22:52 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000005 | LBSF (Europa) -> UBBB (Asia) | 1 maletas
+Registro: 02/01/2026 01:09 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 3h 28m | Llegada: 02/01/2026 02:20
+Tiempo real: 26h 20m | Llegada: 03/01/2026 03:29
 Ruta (1 vuelos):
-  (1) LDZA -> OSDI | Salida: 23:26 | Llegada: 02:10 | Vuelo: 0/300 | Almacén LDZA: 2/420
+  (1) LBSF -> UBBB | Salida: 00:28 | Llegada: 03:19 | Vuelo: 1/320 | Almacén LBSF: 1/400
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | OERK (Asia) -> SABE (America) | 2 maletas
-Registro: 01/01/2026 22:56 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | EDDI (Europa) -> LBSF (Europa) | 1 maletas
+Registro: 02/01/2026 01:10 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 18h 18m | Llegada: 02/01/2026 17:14
+Tiempo real: 2h 42m | Llegada: 02/01/2026 03:52
 Ruta (1 vuelos):
-  (1) OERK -> SABE | Salida: 01:05 | Llegada: 17:04 | Vuelo: 0/300 | Almacén OERK: 4/420
+  (1) EDDI -> LBSF | Salida: 02:01 | Llegada: 03:42 | Vuelo: 2/360 | Almacén EDDI: 3/480
 
-[2026-04-28 00:16:02] --------------------------------------------------------------------------------
-ENVÍO: 000000005 | OPKC (Asia) -> SKBO (America) | 1 maletas
-Registro: 01/01/2026 22:58 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000008 | OPKC (Asia) -> LKPR (Europa) | 1 maletas
+Registro: 02/01/2026 01:10 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 39h 5m | Llegada: 03/01/2026 14:03
+Tiempo real: 25h 10m | Llegada: 03/01/2026 02:20
 Ruta (1 vuelos):
-  (1) OPKC -> SKBO | Salida: 19:18 | Llegada: 13:53 | Vuelo: 0/360 | Almacén OPKC: 3/410
+  (1) OPKC -> LKPR | Salida: 19:25 | Llegada: 02:10 | Vuelo: 1/360 | Almacén OPKC: 3/410
 
-[2026-04-28 00:16:02] ================================================================================
-[2026-04-28 00:16:02] [Iteración 24] Sa=02/01/2026 00:00 | Sc=02/01/2026 00:00
-[2026-04-28 00:16:02] Envíos bloque: 22 | Maletas: 44
-[2026-04-28 00:16:02] ACS - Solución inicial FIFO construida.
-[2026-04-28 00:16:12] Algoritmo ejecutado en 10030ms | Métrica: 923.5909
-[2026-04-28 00:16:12] >>> REPORTE DE RUTAS ASIGNADAS - Iteración 24 <<<
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | EKCH (Europa) -> SPIM (America) | 2 maletas
-Registro: 01/01/2026 23:06 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | LDZA (Europa) -> UBBB (Asia) | 1 maletas
+Registro: 02/01/2026 01:13 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 19h 6m | Llegada: 02/01/2026 18:12
+Tiempo real: 25h 0m | Llegada: 03/01/2026 02:13
 Ruta (1 vuelos):
-  (1) EKCH -> SPIM | Salida: 04:09 | Llegada: 18:02 | Vuelo: 0/360 | Almacén EKCH: 2/480
+  (1) LDZA -> UBBB | Salida: 22:31 | Llegada: 02:03 | Vuelo: 1/340 | Almacén LDZA: 3/420
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | LKPR (Europa) -> LBSF (Europa) | 2 maletas
-Registro: 01/01/2026 23:07 | SLA: 24h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000003 | EKCH (Europa) -> SABE (America) | 2 maletas
+Registro: 02/01/2026 01:15 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 7h 38m | Llegada: 02/01/2026 06:45
+Tiempo real: 17h 13m | Llegada: 02/01/2026 18:28
 Ruta (1 vuelos):
-  (1) LKPR -> LBSF | Salida: 05:10 | Llegada: 06:35 | Vuelo: 0/360 | Almacén LKPR: 2/400
+  (1) EKCH -> SABE | Salida: 03:19 | Llegada: 18:18 | Vuelo: 2/320 | Almacén EKCH: 4/480
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | OYSN (Asia) -> OPKC (Asia) | 2 maletas
-Registro: 01/01/2026 23:07 | SLA: 24h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000007 | VIDP (Asia) -> EKCH (Europa) | 1 maletas
+Registro: 02/01/2026 01:18 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 10h 29m | Llegada: 02/01/2026 09:36
+Tiempo real: 27h 36m | Llegada: 03/01/2026 04:54
 Ruta (1 vuelos):
-  (1) OYSN -> OPKC | Salida: 06:10 | Llegada: 09:26 | Vuelo: 0/320 | Almacén OYSN: 2/420
+  (1) VIDP -> EKCH | Salida: 21:18 | Llegada: 04:44 | Vuelo: 1/300 | Almacén VIDP: 1/480
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000004 | OAKB (Asia) -> OERK (Asia) | 1 maletas
-Registro: 01/01/2026 23:08 | SLA: 24h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000007 | OOMS (Asia) -> SLLP (America) | 1 maletas
+Registro: 02/01/2026 01:22 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 7h 10m | Llegada: 02/01/2026 06:18
+Tiempo real: 37h 4m | Llegada: 03/01/2026 14:26
 Ruta (1 vuelos):
-  (1) OAKB -> OERK | Salida: 03:01 | Llegada: 06:08 | Vuelo: 0/340 | Almacén OAKB: 1/480
+  (1) OOMS -> SLLP | Salida: 20:15 | Llegada: 14:16 | Vuelo: 1/300 | Almacén OOMS: 2/460
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | OSDI (Asia) -> EBCI (Europa) | 2 maletas
-Registro: 01/01/2026 23:09 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000005 | UMMS (Europa) -> OJAI (Asia) | 2 maletas
+Registro: 02/01/2026 01:25 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 6h 36m | Llegada: 02/01/2026 05:45
+Tiempo real: 5h 45m | Llegada: 02/01/2026 07:10
 Ruta (1 vuelos):
-  (1) OSDI -> EBCI | Salida: 01:32 | Llegada: 05:35 | Vuelo: 0/320 | Almacén OSDI: 4/400
+  (1) UMMS -> OJAI | Salida: 03:51 | Llegada: 07:00 | Vuelo: 2/300 | Almacén UMMS: 4/400
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000004 | OOMS (Asia) -> LATI (Europa) | 1 maletas
-Registro: 01/01/2026 23:13 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000007 | OAKB (Asia) -> UMMS (Europa) | 1 maletas
+Registro: 02/01/2026 01:29 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 28h 21m | Llegada: 03/01/2026 03:34
+Tiempo real: 27h 11m | Llegada: 03/01/2026 04:40
 Ruta (1 vuelos):
-  (1) OOMS -> LATI | Salida: 22:12 | Llegada: 03:24 | Vuelo: 0/340 | Almacén OOMS: 1/460
+  (1) OAKB -> UMMS | Salida: 23:40 | Llegada: 04:30 | Vuelo: 1/320 | Almacén OAKB: 1/480
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | LOWW (Europa) -> LATI (Europa) | 3 maletas
-Registro: 01/01/2026 23:14 | SLA: 24h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000003 | UBBB (Asia) -> SKBO (America) | 2 maletas
+Registro: 02/01/2026 01:29 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 3h 17m | Llegada: 02/01/2026 02:31
+Tiempo real: 37h 50m | Llegada: 03/01/2026 15:19
 Ruta (1 vuelos):
-  (1) LOWW -> LATI | Salida: 01:20 | Llegada: 02:21 | Vuelo: 0/300 | Almacén LOWW: 3/430
+  (1) UBBB -> SKBO | Salida: 23:25 | Llegada: 15:09 | Vuelo: 2/300 | Almacén UBBB: 2/400
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | UBBB (Asia) -> LBSF (Europa) | 3 maletas
-Registro: 01/01/2026 23:14 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000003 | LOWW (Europa) -> LBSF (Europa) | 3 maletas
+Registro: 02/01/2026 01:37 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 3h 30m | Llegada: 02/01/2026 02:44
+Tiempo real: 1h 23m | Llegada: 02/01/2026 03:00
 Ruta (1 vuelos):
-  (1) UBBB -> LBSF | Salida: 23:43 | Llegada: 02:34 | Vuelo: 0/320 | Almacén UBBB: 3/400
+  (1) LOWW -> LBSF | Salida: 01:45 | Llegada: 02:50 | Vuelo: 3/320 | Almacén LOWW: 6/430
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000001 | EHAM (Europa) -> OAKB (Asia) | 3 maletas
-Registro: 01/01/2026 23:20 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000003 | EHAM (Europa) -> LKPR (Europa) | 3 maletas
+Registro: 02/01/2026 01:39 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 12h 36m | Llegada: 02/01/2026 11:56
+Tiempo real: 22h 3m | Llegada: 02/01/2026 23:42
 Ruta (1 vuelos):
-  (1) EHAM -> OAKB | Salida: 04:55 | Llegada: 11:46 | Vuelo: 0/320 | Almacén EHAM: 3/480
+  (1) EHAM -> LKPR | Salida: 22:37 | Llegada: 23:32 | Vuelo: 3/320 | Almacén EHAM: 3/480
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000005 | VIDP (Asia) -> SCEL (America) | 2 maletas
-Registro: 01/01/2026 23:28 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000005 | OERK (Asia) -> LDZA (Europa) | 2 maletas
+Registro: 02/01/2026 01:42 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 30h 9m | Llegada: 03/01/2026 05:37
+Tiempo real: 7h 14m | Llegada: 02/01/2026 08:56
 Ruta (1 vuelos):
-  (1) VIDP -> SCEL | Salida: 08:18 | Llegada: 05:27 | Vuelo: 0/360 | Almacén VIDP: 6/480
+  (1) OERK -> LDZA | Salida: 04:17 | Llegada: 08:46 | Vuelo: 2/320 | Almacén OERK: 2/420
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000003 | LBSF (Europa) -> VIDP (Asia) | 2 maletas
-Registro: 01/01/2026 23:33 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000005 | LATI (Europa) -> SABE (America) | 1 maletas
+Registro: 02/01/2026 01:53 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 9h 55m | Llegada: 02/01/2026 09:28
+Tiempo real: 36h 12m | Llegada: 03/01/2026 14:05
 Ruta (1 vuelos):
-  (1) LBSF -> VIDP | Salida: 02:56 | Llegada: 09:18 | Vuelo: 0/320 | Almacén LBSF: 4/400
+  (1) LATI -> SABE | Salida: 23:30 | Llegada: 13:55 | Vuelo: 1/340 | Almacén LATI: 2/410
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | EBCI (Europa) -> SVMI (America) | 2 maletas
-Registro: 01/01/2026 23:36 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000006 | LBSF (Europa) -> LOWW (Europa) | 1 maletas
+Registro: 02/01/2026 01:54 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 32h 38m | Llegada: 03/01/2026 08:14
+Tiempo real: 1h 15m | Llegada: 02/01/2026 03:09
 Ruta (1 vuelos):
-  (1) EBCI -> SVMI | Salida: 22:21 | Llegada: 08:04 | Vuelo: 0/300 | Almacén EBCI: 4/440
+  (1) LBSF -> LOWW | Salida: 01:54 | Llegada: 02:59 | Vuelo: 1/360 | Almacén LBSF: 4/400
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | EDDI (Europa) -> SPIM (America) | 2 maletas
-Registro: 01/01/2026 23:36 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000005 | EDDI (Europa) -> LBSF (Europa) | 1 maletas
+Registro: 02/01/2026 01:57 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 15h 33m | Llegada: 02/01/2026 15:09
+Tiempo real: 1h 55m | Llegada: 02/01/2026 03:52
 Ruta (1 vuelos):
-  (1) EDDI -> SPIM | Salida: 01:05 | Llegada: 14:59 | Vuelo: 0/360 | Almacén EDDI: 2/480
+  (1) EDDI -> LBSF | Salida: 02:01 | Llegada: 03:42 | Vuelo: 2/360 | Almacén EDDI: 3/480
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | LATI (Europa) -> OMDB (Asia) | 2 maletas
-Registro: 01/01/2026 23:36 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000005 | EBCI (Europa) -> LBSF (Europa) | 1 maletas
+Registro: 02/01/2026 01:58 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 28h 46m | Llegada: 03/01/2026 04:22
+Tiempo real: 10h 9m | Llegada: 02/01/2026 12:07
 Ruta (1 vuelos):
-  (1) LATI -> OMDB | Salida: 23:28 | Llegada: 04:12 | Vuelo: 0/360 | Almacén LATI: 2/410
+  (1) EBCI -> LBSF | Salida: 09:48 | Llegada: 11:57 | Vuelo: 1/320 | Almacén EBCI: 1/440
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000006 | OPKC (Asia) -> SCEL (America) | 1 maletas
-Registro: 01/01/2026 23:39 | SLA: 48h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000009 | OPKC (Asia) -> SVMI (America) | 1 maletas
+Registro: 02/01/2026 01:58 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 39h 22m | Llegada: 03/01/2026 15:01
+Tiempo real: 36h 36m | Llegada: 03/01/2026 14:34
 Ruta (1 vuelos):
-  (1) OPKC -> SCEL | Salida: 19:04 | Llegada: 14:51 | Vuelo: 0/320 | Almacén OPKC: 4/410
+  (1) OPKC -> SVMI | Salida: 21:13 | Llegada: 14:24 | Vuelo: 1/360 | Almacén OPKC: 1/410
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000003 | OMDB (Asia) -> OAKB (Asia) | 3 maletas
-Registro: 01/01/2026 23:40 | SLA: 24h
+[2026-04-28 08:42:47] --------------------------------------------------------------------------------
+ENVÍO: 000000009 | OOMS (Asia) -> OERK (Asia) | 1 maletas
+Registro: 02/01/2026 02:00 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 2h 47m | Llegada: 02/01/2026 02:27
+Tiempo real: 10h 3m | Llegada: 02/01/2026 12:03
 Ruta (1 vuelos):
-  (1) OMDB -> OAKB | Salida: 00:11 | Llegada: 02:17 | Vuelo: 0/320 | Almacén OMDB: 3/420
+  (1) OOMS -> OERK | Salida: 10:21 | Llegada: 11:53 | Vuelo: 1/320 | Almacén OOMS: 3/460
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | OJAI (Asia) -> EDDI (Europa) | 3 maletas
-Registro: 01/01/2026 23:42 | SLA: 48h
+[2026-04-28 08:42:47] ================================================================================
+[2026-04-28 08:42:47] [Iteración 3] Sa=02/01/2026 03:00 | Sc=02/01/2026 03:00
+[2026-04-28 08:42:47] Envíos bloque: 23 | Maletas: 37
+[2026-04-28 08:42:47] ACS - Solución inicial FIFO construida.
+[2026-04-28 08:42:57] Algoritmo ejecutado en 10075ms | Métrica: 0.5615
+[2026-04-28 08:42:57] >>> REPORTE DE RUTAS ASIGNADAS - Iteración 3 <<<
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000009 | VIDP (Asia) -> EDDI (Europa) | 1 maletas
+Registro: 02/01/2026 02:01 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 26h 48m | Llegada: 03/01/2026 02:30
+Tiempo real: 29h 50m | Llegada: 03/01/2026 07:51
 Ruta (1 vuelos):
-  (1) OJAI -> EDDI | Salida: 22:38 | Llegada: 02:20 | Vuelo: 0/340 | Almacén OJAI: 3/400
+  (1) VIDP -> EDDI | Salida: 00:20 | Llegada: 07:41 | Vuelo: 1/340 | Almacén VIDP: 1/480
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000003 | UMMS (Europa) -> OSDI (Asia) | 2 maletas
-Registro: 01/01/2026 23:43 | SLA: 48h
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000005 | OYSN (Asia) -> SCEL (America) | 2 maletas
+Registro: 02/01/2026 02:06 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 3h 25m | Llegada: 02/01/2026 03:08
+Tiempo real: 36h 12m | Llegada: 03/01/2026 14:18
 Ruta (1 vuelos):
-  (1) UMMS -> OSDI | Salida: 00:04 | Llegada: 02:58 | Vuelo: 0/320 | Almacén UMMS: 6/400
+  (1) OYSN -> SCEL | Salida: 21:37 | Llegada: 14:08 | Vuelo: 2/320 | Almacén OYSN: 2/420
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000002 | LDZA (Europa) -> EBCI (Europa) | 2 maletas
-Registro: 01/01/2026 23:44 | SLA: 24h
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000008 | VIDP (Asia) -> OERK (Asia) | 1 maletas
+Registro: 02/01/2026 02:06 | SLA: 24h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 2h 59m | Llegada: 02/01/2026 02:43
+Tiempo real: 12h 38m | Llegada: 02/01/2026 14:44
 Ruta (1 vuelos):
-  (1) LDZA -> EBCI | Salida: 01:14 | Llegada: 02:33 | Vuelo: 0/300 | Almacén LDZA: 2/420
+  (1) VIDP -> OERK | Salida: 10:39 | Llegada: 14:34 | Vuelo: 1/320 | Almacén VIDP: 3/480
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000003 | OERK (Asia) -> EKCH (Europa) | 2 maletas
-Registro: 01/01/2026 23:54 | SLA: 48h
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000005 | LDZA (Europa) -> SABE (America) | 1 maletas
+Registro: 02/01/2026 02:08 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 8h 29m | Llegada: 02/01/2026 08:23
+Tiempo real: 35h 33m | Llegada: 03/01/2026 13:41
 Ruta (1 vuelos):
-  (1) OERK -> EKCH | Salida: 02:39 | Llegada: 08:13 | Vuelo: 0/340 | Almacén OERK: 4/420
+  (1) LDZA -> SABE | Salida: 23:02 | Llegada: 13:31 | Vuelo: 1/300 | Almacén LDZA: 1/420
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000005 | OOMS (Asia) -> OYSN (Asia) | 1 maletas
-Registro: 01/01/2026 23:54 | SLA: 24h
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000005 | OMDB (Asia) -> SUAA (America) | 2 maletas
+Registro: 02/01/2026 02:08 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 12h 42m | Llegada: 02/01/2026 12:36
+Tiempo real: 35h 5m | Llegada: 03/01/2026 13:13
 Ruta (1 vuelos):
-  (1) OOMS -> OYSN | Salida: 10:17 | Llegada: 12:26 | Vuelo: 0/340 | Almacén OOMS: 4/460
+  (1) OMDB -> SUAA | Salida: 20:13 | Llegada: 13:03 | Vuelo: 2/300 | Almacén OMDB: 2/420
 
-[2026-04-28 00:16:12] --------------------------------------------------------------------------------
-ENVÍO: 000000005 | OAKB (Asia) -> LDZA (Europa) | 1 maletas
-Registro: 01/01/2026 23:57 | SLA: 48h
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000005 | OSDI (Asia) -> SCEL (America) | 2 maletas
+Registro: 02/01/2026 02:08 | SLA: 48h
 ESTADO: [OK] A TIEMPO
-Tiempo real: 26h 23m | Llegada: 03/01/2026 02:20
+Tiempo real: 40h 50m | Llegada: 03/01/2026 18:58
 Ruta (1 vuelos):
-  (1) OAKB -> LDZA | Salida: 20:22 | Llegada: 02:10 | Vuelo: 0/320 | Almacén OAKB: 1/480
+  (1) OSDI -> SCEL | Salida: 02:06 | Llegada: 18:48 | Vuelo: 2/320 | Almacén OSDI: 2/400
 
-[2026-04-28 00:16:12] ================================================================================
-[2026-04-28 00:16:12] SIMULACIÓN FINALIZADA | Total envíos=52 | Maletas=103 | Tiempo=50s
-[2026-04-28 00:16:12] === LOGGER CERRADO ===
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | EKCH (Europa) -> OERK (Asia) | 2 maletas
+Registro: 02/01/2026 02:09 | SLA: 48h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 27h 3m | Llegada: 03/01/2026 05:12
+Ruta (1 vuelos):
+  (1) EKCH -> OERK | Salida: 23:28 | Llegada: 05:02 | Vuelo: 2/340 | Almacén EKCH: 2/480
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | LKPR (Europa) -> EBCI (Europa) | 2 maletas
+Registro: 02/01/2026 02:09 | SLA: 24h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 4h 43m | Llegada: 02/01/2026 06:52
+Ruta (1 vuelos):
+  (1) LKPR -> EBCI | Salida: 05:49 | Llegada: 06:42 | Vuelo: 2/300 | Almacén LKPR: 2/400
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000008 | OOMS (Asia) -> EBCI (Europa) | 1 maletas
+Registro: 02/01/2026 02:09 | SLA: 48h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 30h 52m | Llegada: 03/01/2026 09:01
+Ruta (1 vuelos):
+  (1) OOMS -> EBCI | Salida: 01:54 | Llegada: 08:51 | Vuelo: 1/340 | Almacén OOMS: 1/460
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000008 | OAKB (Asia) -> SEQM (America) | 1 maletas
+Registro: 02/01/2026 02:14 | SLA: 48h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 24h 19m | Llegada: 03/01/2026 02:33
+Ruta (1 vuelos):
+  (1) OAKB -> SEQM | Salida: 07:38 | Llegada: 02:23 | Vuelo: 1/300 | Almacén OAKB: 2/480
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | OJAI (Asia) -> VIDP (Asia) | 3 maletas
+Registro: 02/01/2026 02:25 | SLA: 24h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 7h 4m | Llegada: 02/01/2026 09:29
+Ruta (1 vuelos):
+  (1) OJAI -> VIDP | Salida: 04:13 | Llegada: 09:19 | Vuelo: 3/300 | Almacén OJAI: 6/400
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000006 | UMMS (Europa) -> EHAM (Europa) | 2 maletas
+Registro: 02/01/2026 02:25 | SLA: 24h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 23h 44m | Llegada: 03/01/2026 02:09
+Ruta (1 vuelos):
+  (1) UMMS -> EHAM | Salida: 23:57 | Llegada: 01:59 | Vuelo: 2/320 | Almacén UMMS: 2/400
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000006 | OERK (Asia) -> SLLP (America) | 2 maletas
+Registro: 02/01/2026 02:35 | SLA: 48h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 35h 38m | Llegada: 03/01/2026 14:13
+Ruta (1 vuelos):
+  (1) OERK -> SLLP | Salida: 21:33 | Llegada: 14:03 | Vuelo: 2/340 | Almacén OERK: 2/420
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000006 | LATI (Europa) -> LOWW (Europa) | 1 maletas
+Registro: 02/01/2026 02:36 | SLA: 24h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 21h 19m | Llegada: 02/01/2026 23:55
+Ruta (1 vuelos):
+  (1) LATI -> LOWW | Salida: 22:44 | Llegada: 23:45 | Vuelo: 1/360 | Almacén LATI: 3/410
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000006 | EDDI (Europa) -> SPIM (America) | 1 maletas
+Registro: 02/01/2026 02:37 | SLA: 48h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 36h 32m | Llegada: 03/01/2026 15:09
+Ruta (1 vuelos):
+  (1) EDDI -> SPIM | Salida: 01:05 | Llegada: 14:59 | Vuelo: 1/360 | Almacén EDDI: 1/480
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | UBBB (Asia) -> VIDP (Asia) | 2 maletas
+Registro: 02/01/2026 02:40 | SLA: 24h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 8h 13m | Llegada: 02/01/2026 10:53
+Ruta (1 vuelos):
+  (1) UBBB -> VIDP | Salida: 07:12 | Llegada: 10:43 | Vuelo: 2/320 | Almacén UBBB: 7/400
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000006 | EBCI (Europa) -> EDDI (Europa) | 1 maletas
+Registro: 02/01/2026 02:42 | SLA: 24h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 6h 55m | Llegada: 02/01/2026 09:37
+Ruta (1 vuelos):
+  (1) EBCI -> EDDI | Salida: 08:37 | Llegada: 09:27 | Vuelo: 1/300 | Almacén EBCI: 3/440
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000007 | LBSF (Europa) -> SBBR (America) | 1 maletas
+Registro: 02/01/2026 02:45 | SLA: 48h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 32h 13m | Llegada: 03/01/2026 10:58
+Ruta (1 vuelos):
+  (1) LBSF -> SBBR | Salida: 22:48 | Llegada: 10:48 | Vuelo: 1/360 | Almacén LBSF: 2/400
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000010 | OPKC (Asia) -> EBCI (Europa) | 1 maletas
+Registro: 02/01/2026 02:46 | SLA: 48h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 30h 19m | Llegada: 03/01/2026 09:05
+Ruta (1 vuelos):
+  (1) OPKC -> EBCI | Salida: 01:16 | Llegada: 08:55 | Vuelo: 1/340 | Almacén OPKC: 1/410
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000006 | LDZA (Europa) -> SVMI (America) | 1 maletas
+Registro: 02/01/2026 02:48 | SLA: 48h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 16h 59m | Llegada: 02/01/2026 19:47
+Ruta (1 vuelos):
+  (1) LDZA -> SVMI | Salida: 08:49 | Llegada: 19:37 | Vuelo: 1/360 | Almacén LDZA: 5/420
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | LOWW (Europa) -> OJAI (Asia) | 3 maletas
+Registro: 02/01/2026 02:50 | SLA: 48h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 3h 39m | Llegada: 02/01/2026 06:29
+Ruta (1 vuelos):
+  (1) LOWW -> OJAI | Salida: 03:12 | Llegada: 06:19 | Vuelo: 3/320 | Almacén LOWW: 6/430
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000004 | EHAM (Europa) -> OPKC (Asia) | 3 maletas
+Registro: 02/01/2026 02:53 | SLA: 48h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 28h 24m | Llegada: 03/01/2026 07:17
+Ruta (1 vuelos):
+  (1) EHAM -> OPKC | Salida: 23:27 | Llegada: 07:07 | Vuelo: 3/300 | Almacén EHAM: 3/480
+
+[2026-04-28 08:42:57] --------------------------------------------------------------------------------
+ENVÍO: 000000009 | OAKB (Asia) -> OMDB (Asia) | 1 maletas
+Registro: 02/01/2026 02:56 | SLA: 24h
+ESTADO: [OK] A TIEMPO
+Tiempo real: 3h 37m | Llegada: 02/01/2026 06:33
+Ruta (1 vuelos):
+  (1) OAKB -> OMDB | Salida: 04:17 | Llegada: 06:23 | Vuelo: 1/360 | Almacén OAKB: 4/480
+
+[2026-04-28 08:42:57] ================================================================================
+[2026-04-28 08:42:57] SIMULACIÓN FINALIZADA | Total envíos=67 | Maletas=111 | Tiempo=30s
+[2026-04-28 08:42:57] === LOGGER CERRADO ===

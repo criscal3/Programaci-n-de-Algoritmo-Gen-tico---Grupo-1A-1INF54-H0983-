@@ -134,8 +134,7 @@ public class ACSAdapter {
 
             if (!vuelosUsados.isEmpty()) {
                 output.agregarRuta(envio, new ResultadoRuta(
-                        llegadaFinal, vuelosUsados, fechasVuelo,
-                        snapCapUsada, snapOcupAlmacen));
+                        llegadaFinal, vuelosUsados, fechasVuelo));
             }
         }
 

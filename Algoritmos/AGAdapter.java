@@ -56,9 +56,6 @@ public class AGAdapter {
                             + "-" + salida.getHour();
                     snapAlmacen.add(ocupAlmacenes.getOrDefault(claveA, 0));
                 }
-
-                ruta.capacidadUsadaVuelo    = snapCap;
-                ruta.ocupacionAlmacenOrigen = snapAlmacen;
             }
 
             output.agregarRuta(envio, ruta);
