@@ -1,7 +1,5 @@
 public class Aeropuerto {
     private String id;
-    private String nombre;
-    private String pais;
     private String continente; // "America del Sur", "Europa", etc o simplificado a AM/EU
     private int husoHorario;   // e.g. -5, 2
     private int capacidad;     // 500 - 800

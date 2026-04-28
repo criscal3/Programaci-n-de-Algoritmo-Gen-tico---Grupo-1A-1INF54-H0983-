@@ -1,68 +1,75 @@
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
  * Adaptador del Algoritmo Genético.
- * Envuelve AlgoritmoGenetico para que devuelva PlanificationSolutionOutput
- * (el formato canónico del proyecto).
+ * Envuelve AlgoritmoGenetico para producir PlanificationSolutionOutput canónico.
+ * Puebla los snapshots de capacidad y almacén en cada ResultadoRuta para
+ * que Simulador pueda mostrarlos en el reporte y el log.
  */
 public class AGAdapter {
 
-    /**
-     * Ejecuta el Algoritmo Genético sobre el sub-input dado.
-     *
-     * @param input        Sub-input con aeropuertos, vuelos y envíos del bloque
-     * @param tiempoSegundos Tiempo máximo en segundos
-     * @return             Solución con rutas, capacidades y métricas
-     */
     public static PlanificationSolutionOutput planificar(
             PlanificationProblemInput input, int tiempoSegundos) {
 
         PlanificationSolutionOutput output = new PlanificationSolutionOutput("AG");
-
         if (input.getEnvios().isEmpty()) {
-            output.setMetricaCalidad(0.0);
+            output.setMetricaUnificada(0.0);
             return output;
         }
 
-        // Instanciar el AG con los datos canónicos (ya comparte referencias)
         AlgoritmoGenetico ag = new AlgoritmoGenetico(
                 input.getTodosLosVuelos(),
-                input.getMapaAeropuertos()
-        );
+                input.getMapaAeropuertos());
 
-        // Transferir la ocupación global de vuelos al AG
-        // (el AG usa su propio mapa interno estadoCapacidadesFinal que se inicializa
-        //  vacío, por lo que inicializamos su estado con el acumulado global)
-        // Nota: AlgoritmoGenetico.planificar() recibe envíos del bloque + tiempo límite
         List<EnvioAlgoritmo> enviosPlanificados = ag.planificar(input.getEnvios(), tiempoSegundos);
 
-        Map<String, ResultadoRuta> mapaRutas  = ag.getMejoresRutasActuales();
-        Map<String, Integer> capVuelos        = ag.getEstadoCapacidadesFinal();
-        Map<String, Integer> ocupAlmacenes    = ag.getOcupacionAlmacenesFisicos();
+        Map<String, ResultadoRuta> mapaRutas   = ag.getMejoresRutasActuales();
+        Map<String, Integer> capVuelos          = ag.getEstadoCapacidadesFinal();
+        Map<String, Integer> ocupAlmacenes      = ag.getOcupacionAlmacenesFisicos();
 
-        // Registrar rutas en el output canónico
         for (EnvioAlgoritmo envio : enviosPlanificados) {
             String clave = envio.getOrigenOaci() + "-" + envio.getId();
             ResultadoRuta ruta = mapaRutas.get(clave);
+
+            if (ruta != null) {
+                // Poblar snapshots en la ResultadoRuta del AG usando los mapas
+                // finales del bloque. El AG acumula las capacidades en orden
+                // de procesamiento, por lo que el mapa refleja el estado al
+                // finalizar todos los envíos del bloque.
+                List<Integer> snapCap     = new ArrayList<>();
+                List<Integer> snapAlmacen = new ArrayList<>();
+
+                for (int i = 0; i < ruta.vuelosUsados.size(); i++) {
+                    VueloAlgoritmo v     = ruta.vuelosUsados.get(i);
+                    LocalDateTime salida = ruta.fechasVuelo.get(i);
+
+                    // Capacidad usada: capacidad total menos restante
+                    String claveV    = v.getOrigenOaci() + "-" + v.getDestinoOaci()
+                            + "-" + v.getHoraSalida() + "-" + salida.toLocalDate();
+                    int capRestante  = capVuelos.getOrDefault(claveV, v.getCapacidad());
+                    snapCap.add(v.getCapacidad() - capRestante);
+
+                    // Ocupación del almacén de origen en hora de salida
+                    String claveA   = v.getOrigenOaci()
+                            + "-" + salida.toLocalDate()
+                            + "-" + salida.getHour();
+                    snapAlmacen.add(ocupAlmacenes.getOrDefault(claveA, 0));
+                }
+
+                ruta.capacidadUsadaVuelo    = snapCap;
+                ruta.ocupacionAlmacenOrigen = snapAlmacen;
+            }
+
             output.agregarRuta(envio, ruta);
         }
 
-        // Propagar ocupaciones al input global (para que el siguiente bloque las tenga)
-        for (Map.Entry<String, Integer> e : capVuelos.entrySet()) {
-            // capVuelos guarda capacidad RESTANTE (capacidad - uso), necesitamos el uso
-            // Recalculamos: para cada clave, buscamos el vuelo original y deducimos
-            // No disponemos del vuelo original fácilmente por clave, así que simplemente
-            // actualizamos el mapa global de ocupación con las diferencias
-        }
-        // Más limpio: propagamos directamente el estado de ocupación de almacenes
-        for (Map.Entry<String, Integer> e : ocupAlmacenes.entrySet()) {
+        for (Map.Entry<String, Integer> e : ocupAlmacenes.entrySet())
             input.incrementarOcupacionGlobalAlmacen(e.getKey(), e.getValue());
-        }
 
-        output.calcularMetricaUnificada();
+        output.calcularMetricaUnificada(input.getMapaAeropuertos());
         output.setEstadoCapacidadesVuelos(capVuelos);
         output.setEstadoOcupacionAlmacenes(ocupAlmacenes);
-
         return output;
     }
 }

@@ -179,7 +179,7 @@ public class Simulador {
                 long duracion = System.currentTimeMillis() - t0;
 
                 Logger.info("Algoritmo ejecutado en " + duracion + "ms | Métrica: "
-                        + String.format("%.4f", solucion.getMetricaCalidad()));
+                        + String.format("%.4f", solucion.getMetricaUnificada()));
 
                 todasLasSoluciones.add(solucion);
 
@@ -192,7 +192,7 @@ public class Simulador {
                 }
 
                 System.out.printf(" -> Tiempo ejecución algoritmo: %dms | Métrica calidad: %.4f%n",
-                        duracion, solucion.getMetricaCalidad());
+                        duracion, solucion.getMetricaUnificada());
 
             } else {
                 System.out.println(" -> No hay nuevos envíos en este lapso.");
@@ -297,13 +297,25 @@ public class Simulador {
                 sb.append("Ruta (").append(ruta.vuelosUsados.size()).append(" vuelos):\n");
 
                 for (int i = 0; i < ruta.vuelosUsados.size(); i++) {
-                    VueloAlgoritmo v = ruta.vuelosUsados.get(i);
+                    VueloAlgoritmo v      = ruta.vuelosUsados.get(i);
                     LocalDateTime  salida = ruta.fechasVuelo.get(i);
-                    sb.append(String.format("  (%d) %s -> %s | Salida: %s | Llegada: %s | Cap: %d%n",
+
+                    // Snapshots guardados en el momento de la asignación
+                    int capUsada   = (ruta.capacidadUsadaVuelo != null && i < ruta.capacidadUsadaVuelo.size())
+                            ? ruta.capacidadUsadaVuelo.get(i) : 0;
+                    int usoAlmacen = (ruta.ocupacionAlmacenOrigen != null && i < ruta.ocupacionAlmacenOrigen.size())
+                            ? ruta.ocupacionAlmacenOrigen.get(i) : 0;
+
+                    AeropuertoAlgoritmo aeroOrigen = mapaAeropuertos.get(v.getOrigenOaci());
+                    int capAlmacen = aeroOrigen != null ? aeroOrigen.getCapacidadAlmacen() : 0;
+
+                    sb.append(String.format(
+                            "  (%d) %s -> %s | Salida: %s | Llegada: %s | Vuelo: %d/%d | Almacén %s: %d/%d%n",
                             i + 1,
                             v.getOrigenOaci(), v.getDestinoOaci(),
                             salida.toLocalTime(), v.getHoraLlegada(),
-                            v.getCapacidad()));
+                            capUsada, v.getCapacidad(),
+                            v.getOrigenOaci(), usoAlmacen, capAlmacen));
                 }
             }
 
@@ -348,7 +360,7 @@ public class Simulador {
                 PlanificationSolutionOutput sol = soluciones.get(b);
                 pw.println("-".repeat(90));
                 pw.printf("BLOQUE %d | Envíos: %d | Maletas: %d | Métrica: %.4f%n",
-                        b + 1, sol.totalEnvios(), sol.totalMaletas(), sol.getMetricaCalidad());
+                        b + 1, sol.totalEnvios(), sol.totalMaletas(), sol.getMetricaUnificada());
                 pw.println("-".repeat(90));
 
                 for (EnvioAlgoritmo envio : sol.getEnviosPlanificados()) {
@@ -390,13 +402,24 @@ public class Simulador {
                                 h, m, lim, ruta.tiempoLlegadaFinal.format(FMT));
                         pw.println("    Ruta:");
                         for (int i = 0; i < ruta.vuelosUsados.size(); i++) {
-                            VueloAlgoritmo v = ruta.vuelosUsados.get(i);
-                            LocalDateTime salida = ruta.fechasVuelo.get(i);
-                            pw.printf("      (%d) %s -> %s | Salida: %s | Llegada: %s | Cap: %d%n",
+                            VueloAlgoritmo v     = ruta.vuelosUsados.get(i);
+                            LocalDateTime  salida = ruta.fechasVuelo.get(i);
+
+                            // Snapshots guardados en el momento de la asignación
+                            int capUsada   = (ruta.capacidadUsadaVuelo != null && i < ruta.capacidadUsadaVuelo.size())
+                                    ? ruta.capacidadUsadaVuelo.get(i) : 0;
+                            int usoAlmacen = (ruta.ocupacionAlmacenOrigen != null && i < ruta.ocupacionAlmacenOrigen.size())
+                                    ? ruta.ocupacionAlmacenOrigen.get(i) : 0;
+
+                            AeropuertoAlgoritmo aero = mapaAeropuertos.get(v.getOrigenOaci());
+                            int capAlmacen = aero != null ? aero.getCapacidadAlmacen() : 0;
+
+                            pw.printf("      (%d) %s -> %s | Salida: %s | Llegada: %s | Vuelo: %d/%d | Almacén %s: %d/%d%n",
                                     i + 1,
                                     v.getOrigenOaci(), v.getDestinoOaci(),
                                     salida.toLocalTime(), v.getHoraLlegada(),
-                                    v.getCapacidad());
+                                    capUsada, v.getCapacidad(),
+                                    v.getOrigenOaci(), usoAlmacen, capAlmacen);
                         }
                     }
                     pw.println();

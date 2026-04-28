@@ -2,363 +2,363 @@
   REPORTE FINAL DE SIMULACIÓN - TASF.B2B
   Algoritmo: AG
 ==========================================================================================
-  Parámetros: Sa=60min | k=1 | Sc=60min | Ta=20s
+  Parámetros: Sa=60min | k=1 | Sc=60min | Ta=10s
   Inicio simulación : 01/01/2026 00:00
   Fin simulación    : 02/01/2026 00:00
 ==========================================================================================
 
 ------------------------------------------------------------------------------------------
-BLOQUE 1 | Envíos: 2 | Maletas: 4 | Métrica: 432.5000
+BLOQUE 1 | Envíos: 2 | Maletas: 4 | Métrica: 0.2134
 ------------------------------------------------------------------------------------------
   ENVÍO 000000001       | VIDP (Asia) -> OSDI (Asia) | 2 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 6h 4m | SLA: 24h | Llegada: 02/01/2026 01:57
     Ruta:
-      (1) VIDP -> OSDI | Salida: 20:50 | Llegada: 01:47 | Cap: 300
+      (1) VIDP -> OSDI | Salida: 20:50 | Llegada: 01:47 | Vuelo: 2/300 | Almacén VIDP: 2/480
 
   ENVÍO 000000001       | OPKC (Asia) -> EDDI (Europa) | 2 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 8h 21m | SLA: 48h | Llegada: 02/01/2026 04:13
     Ruta:
-      (1) OPKC -> EDDI | Salida: 21:09 | Llegada: 04:03 | Cap: 320
+      (1) OPKC -> EDDI | Salida: 21:09 | Llegada: 04:03 | Vuelo: 2/320 | Almacén OPKC: 2/410
 
 ------------------------------------------------------------------------------------------
-BLOQUE 2 | Envíos: 4 | Maletas: 8 | Métrica: 945.7500
+BLOQUE 2 | Envíos: 4 | Maletas: 8 | Métrica: 0.3284
 ------------------------------------------------------------------------------------------
-  ENVÍO 000000002       | OPKC (Asia) -> SLLP (America) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 21h 49m | SLA: 48h | Llegada: 02/01/2026 18:30
-    Ruta:
-      (1) OPKC -> SVMI | Salida: 21:13 | Llegada: 14:24 | Cap: 360
-      (2) SVMI -> SLLP | Salida: 14:42 | Llegada: 18:20 | Cap: 340
-
-  ENVÍO 000000001       | OAKB (Asia) -> LKPR (Europa) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 9h 27m | SLA: 48h | Llegada: 02/01/2026 06:13
-    Ruta:
-      (1) OAKB -> LKPR | Salida: 00:04 | Llegada: 06:03 | Cap: 340
-
   ENVÍO 000000001       | OOMS (Asia) -> SLLP (America) | 2 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 21h 36m | SLA: 48h | Llegada: 02/01/2026 18:25
     Ruta:
-      (1) OOMS -> OSDI | Salida: 22:10 | Llegada: 01:12 | Cap: 300
-      (2) OSDI -> SLLP | Salida: 02:50 | Llegada: 18:15 | Cap: 300
+      (1) OOMS -> OSDI | Salida: 22:10 | Llegada: 01:12 | Vuelo: 2/300 | Almacén OOMS: 2/460
+      (2) OSDI -> SLLP | Salida: 02:50 | Llegada: 18:15 | Vuelo: 2/300 | Almacén OSDI: 2/400
 
   ENVÍO 000000002       | VIDP (Asia) -> UMMS (Europa) | 2 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 10h 11m | SLA: 48h | Llegada: 02/01/2026 07:01
     Ruta:
-      (1) VIDP -> UBBB | Salida: 00:15 | Llegada: 03:46 | Cap: 360
-      (2) UBBB -> UMMS | Salida: 04:05 | Llegada: 06:51 | Cap: 300
+      (1) VIDP -> UBBB | Salida: 00:15 | Llegada: 03:46 | Vuelo: 2/360 | Almacén VIDP: 2/480
+      (2) UBBB -> UMMS | Salida: 04:05 | Llegada: 06:51 | Vuelo: 2/300 | Almacén UBBB: 2/400
+
+  ENVÍO 000000002       | OPKC (Asia) -> SLLP (America) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 21h 49m | SLA: 48h | Llegada: 02/01/2026 18:30
+    Ruta:
+      (1) OPKC -> SVMI | Salida: 21:13 | Llegada: 14:24 | Vuelo: 2/360 | Almacén OPKC: 2/410
+      (2) SVMI -> SLLP | Salida: 14:42 | Llegada: 18:20 | Vuelo: 2/340 | Almacén SVMI: 2/400
+
+  ENVÍO 000000001       | OAKB (Asia) -> LKPR (Europa) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 9h 27m | SLA: 48h | Llegada: 02/01/2026 06:13
+    Ruta:
+      (1) OAKB -> LKPR | Salida: 00:04 | Llegada: 06:03 | Vuelo: 2/340 | Almacén OAKB: 2/480
 
 ------------------------------------------------------------------------------------------
-BLOQUE 3 | Envíos: 8 | Maletas: 16 | Métrica: 562.6250
+BLOQUE 3 | Envíos: 8 | Maletas: 16 | Métrica: 0.2509
 ------------------------------------------------------------------------------------------
-  ENVÍO 000000001       | LBSF (Europa) -> OAKB (Asia) | 2 maletas
+  ENVÍO 000000001       | OERK (Asia) -> LKPR (Europa) | 2 maletas
     ESTADO : [OK] A TIEMPO
-    Tiempo : 5h 30m | SLA: 48h | Llegada: 02/01/2026 03:25
+    Tiempo : 7h 32m | SLA: 48h | Llegada: 02/01/2026 05:27
     Ruta:
-      (1) LBSF -> OAKB | Salida: 22:08 | Llegada: 03:15 | Cap: 300
+      (1) OERK -> LOWW | Salida: 23:59 | Llegada: 04:42 | Vuelo: 2/300 | Almacén OERK: 2/420
+      (2) LOWW -> LKPR | Salida: 04:57 | Llegada: 05:17 | Vuelo: 2/300 | Almacén LOWW: 2/430
 
   ENVÍO 000000002       | OOMS (Asia) -> SABE (America) | 2 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 20h 23m | SLA: 48h | Llegada: 02/01/2026 18:03
     Ruta:
-      (1) OOMS -> SABE | Salida: 00:36 | Llegada: 17:53 | Cap: 360
-
-  ENVÍO 000000001       | OERK (Asia) -> LKPR (Europa) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 7h 32m | SLA: 48h | Llegada: 02/01/2026 05:27
-    Ruta:
-      (1) OERK -> LOWW | Salida: 23:59 | Llegada: 04:42 | Cap: 300
-      (2) LOWW -> LKPR | Salida: 04:57 | Llegada: 05:17 | Cap: 300
-
-  ENVÍO 000000001       | UMMS (Europa) -> LATI (Europa) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 4h 35m | SLA: 24h | Llegada: 02/01/2026 02:31
-    Ruta:
-      (1) UMMS -> LOWW | Salida: 22:37 | Llegada: 23:53 | Cap: 320
-      (2) LOWW -> LATI | Salida: 01:20 | Llegada: 02:21 | Cap: 300
-
-  ENVÍO 000000002       | OAKB (Asia) -> VIDP (Asia) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 3h 19m | SLA: 24h | Llegada: 02/01/2026 00:52
-    Ruta:
-      (1) OAKB -> VIDP | Salida: 23:26 | Llegada: 00:42 | Cap: 300
-
-  ENVÍO 000000003       | VIDP (Asia) -> OPKC (Asia) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 8h 58m | SLA: 24h | Llegada: 02/01/2026 06:38
-    Ruta:
-      (1) VIDP -> OPKC | Salida: 05:06 | Llegada: 06:28 | Cap: 340
-
-  ENVÍO 000000001       | OMDB (Asia) -> OJAI (Asia) | 3 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 4h 28m | SLA: 24h | Llegada: 02/01/2026 01:44
-    Ruta:
-      (1) OMDB -> OJAI | Salida: 22:58 | Llegada: 01:34 | Cap: 300
+      (1) OOMS -> SABE | Salida: 00:36 | Llegada: 17:53 | Vuelo: 2/360 | Almacén OOMS: 2/460
 
   ENVÍO 000000003       | OPKC (Asia) -> SGAS (America) | 1 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 20h 16m | SLA: 48h | Llegada: 02/01/2026 17:35
     Ruta:
-      (1) OPKC -> SGAS | Salida: 23:19 | Llegada: 17:25 | Cap: 340
+      (1) OPKC -> SGAS | Salida: 23:19 | Llegada: 17:25 | Vuelo: 1/340 | Almacén OPKC: 1/410
+
+  ENVÍO 000000001       | UMMS (Europa) -> LATI (Europa) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 4h 35m | SLA: 24h | Llegada: 02/01/2026 02:31
+    Ruta:
+      (1) UMMS -> LOWW | Salida: 22:37 | Llegada: 23:53 | Vuelo: 2/320 | Almacén UMMS: 2/400
+      (2) LOWW -> LATI | Salida: 01:20 | Llegada: 02:21 | Vuelo: 2/300 | Almacén LOWW: 2/430
+
+  ENVÍO 000000001       | OMDB (Asia) -> OJAI (Asia) | 3 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 4h 28m | SLA: 24h | Llegada: 02/01/2026 01:44
+    Ruta:
+      (1) OMDB -> OJAI | Salida: 22:58 | Llegada: 01:34 | Vuelo: 3/300 | Almacén OMDB: 3/420
+
+  ENVÍO 000000002       | OAKB (Asia) -> VIDP (Asia) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 3h 19m | SLA: 24h | Llegada: 02/01/2026 00:52
+    Ruta:
+      (1) OAKB -> VIDP | Salida: 23:26 | Llegada: 00:42 | Vuelo: 2/300 | Almacén OAKB: 2/480
+
+  ENVÍO 000000003       | VIDP (Asia) -> OPKC (Asia) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 8h 58m | SLA: 24h | Llegada: 02/01/2026 06:38
+    Ruta:
+      (1) VIDP -> OPKC | Salida: 05:06 | Llegada: 06:28 | Vuelo: 2/340 | Almacén VIDP: 2/480
+
+  ENVÍO 000000001       | LBSF (Europa) -> OAKB (Asia) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 5h 30m | SLA: 48h | Llegada: 02/01/2026 03:25
+    Ruta:
+      (1) LBSF -> OAKB | Salida: 22:08 | Llegada: 03:15 | Vuelo: 2/300 | Almacén LBSF: 2/400
 
 ------------------------------------------------------------------------------------------
-BLOQUE 4 | Envíos: 16 | Maletas: 31 | Métrica: 813.9375
+BLOQUE 4 | Envíos: 16 | Maletas: 31 | Métrica: 0.2978
 ------------------------------------------------------------------------------------------
-  ENVÍO 000000005       | OPKC (Asia) -> SKBO (America) | 1 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 19h 49m | SLA: 48h | Llegada: 02/01/2026 18:47
-    Ruta:
-      (1) OPKC -> LBSF | Salida: 23:16 | Llegada: 04:55 | Cap: 300
-      (2) LBSF -> SKBO | Salida: 05:41 | Llegada: 18:37 | Cap: 340
-
-  ENVÍO 000000001       | LDZA (Europa) -> OSDI (Asia) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 3h 28m | SLA: 48h | Llegada: 02/01/2026 02:20
-    Ruta:
-      (1) LDZA -> OSDI | Salida: 23:26 | Llegada: 02:10 | Cap: 300
-
-  ENVÍO 000000002       | LBSF (Europa) -> SKBO (America) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 17h 35m | SLA: 48h | Llegada: 02/01/2026 16:16
-    Ruta:
-      (1) LBSF -> LOWW | Salida: 01:54 | Llegada: 02:59 | Cap: 360
-      (2) LOWW -> SKBO | Salida: 03:56 | Llegada: 16:06 | Cap: 360
-
-  ENVÍO 000000001       | OSDI (Asia) -> SCEL (America) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 20h 52m | SLA: 48h | Llegada: 02/01/2026 18:58
-    Ruta:
-      (1) OSDI -> SCEL | Salida: 02:06 | Llegada: 18:48 | Cap: 320
-
   ENVÍO 000000001       | EBCI (Europa) -> SUAA (America) | 2 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 18h 11m | SLA: 48h | Llegada: 02/01/2026 16:58
     Ruta:
-      (1) EBCI -> EHAM | Salida: 01:48 | Llegada: 02:04 | Cap: 360
-      (2) EHAM -> SUAA | Salida: 02:43 | Llegada: 16:48 | Cap: 360
-
-  ENVÍO 000000002       | UMMS (Europa) -> SLLP (America) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 17h 51m | SLA: 48h | Llegada: 02/01/2026 16:42
-    Ruta:
-      (1) UMMS -> EDDI | Salida: 23:14 | Llegada: 00:30 | Cap: 340
-      (2) EDDI -> SLLP | Salida: 02:57 | Llegada: 16:32 | Cap: 300
-
-  ENVÍO 000000003       | OAKB (Asia) -> UBBB (Asia) | 1 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 5h 49m | SLA: 24h | Llegada: 02/01/2026 04:14
-    Ruta:
-      (1) OAKB -> UBBB | Salida: 01:48 | Llegada: 04:04 | Cap: 320
-
-  ENVÍO 000000001       | EDDI (Europa) -> SUAA (America) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 16h 56m | SLA: 48h | Llegada: 02/01/2026 15:45
-    Ruta:
-      (1) EDDI -> SUAA | Salida: 00:55 | Llegada: 15:35 | Cap: 320
-
-  ENVÍO 000000001       | LATI (Europa) -> OPKC (Asia) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 7h 48m | SLA: 48h | Llegada: 02/01/2026 06:36
-    Ruta:
-      (1) LATI -> OPKC | Salida: 00:23 | Llegada: 06:26 | Cap: 300
-
-  ENVÍO 000000004       | OPKC (Asia) -> SUAA (America) | 1 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 19h 16m | SLA: 48h | Llegada: 02/01/2026 17:22
-    Ruta:
-      (1) OPKC -> SUAA | Salida: 23:03 | Llegada: 17:12 | Cap: 360
-
-  ENVÍO 000000002       | OERK (Asia) -> SABE (America) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 18h 18m | SLA: 48h | Llegada: 02/01/2026 17:14
-    Ruta:
-      (1) OERK -> SABE | Salida: 01:05 | Llegada: 17:04 | Cap: 300
-
-  ENVÍO 000000004       | VIDP (Asia) -> EBCI (Europa) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 9h 46m | SLA: 48h | Llegada: 02/01/2026 08:24
-    Ruta:
-      (1) VIDP -> LBSF | Salida: 23:01 | Llegada: 05:23 | Cap: 360
-      (2) LBSF -> EBCI | Salida: 06:05 | Llegada: 08:14 | Cap: 360
+      (1) EBCI -> EHAM | Salida: 01:48 | Llegada: 02:04 | Vuelo: 2/360 | Almacén EBCI: 2/440
+      (2) EHAM -> SUAA | Salida: 02:43 | Llegada: 16:48 | Vuelo: 2/360 | Almacén EHAM: 2/480
 
   ENVÍO 000000003       | OOMS (Asia) -> VIDP (Asia) | 1 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 5h 51m | SLA: 24h | Llegada: 02/01/2026 04:12
     Ruta:
-      (1) OOMS -> VIDP | Salida: 01:33 | Llegada: 04:02 | Cap: 340
+      (1) OOMS -> VIDP | Salida: 01:33 | Llegada: 04:02 | Vuelo: 1/340 | Almacén OOMS: 1/460
+
+  ENVÍO 000000005       | OPKC (Asia) -> SKBO (America) | 1 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 19h 49m | SLA: 48h | Llegada: 02/01/2026 18:47
+    Ruta:
+      (1) OPKC -> LBSF | Salida: 23:16 | Llegada: 04:55 | Vuelo: 1/300 | Almacén OPKC: 2/410
+      (2) LBSF -> SKBO | Salida: 05:41 | Llegada: 18:37 | Vuelo: 1/340 | Almacén LBSF: 3/400
+
+  ENVÍO 000000002       | LBSF (Europa) -> SKBO (America) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 17h 35m | SLA: 48h | Llegada: 02/01/2026 16:16
+    Ruta:
+      (1) LBSF -> LOWW | Salida: 01:54 | Llegada: 02:59 | Vuelo: 2/360 | Almacén LBSF: 2/400
+      (2) LOWW -> SKBO | Salida: 03:56 | Llegada: 16:06 | Vuelo: 2/360 | Almacén LOWW: 6/430
 
   ENVÍO 000000001       | OJAI (Asia) -> SBBR (America) | 4 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 18h 9m | SLA: 48h | Llegada: 02/01/2026 16:31
     Ruta:
-      (1) OJAI -> LOWW | Salida: 23:46 | Llegada: 02:53 | Cap: 360
-      (2) LOWW -> SBBR | Salida: 04:35 | Llegada: 16:21 | Cap: 320
+      (1) OJAI -> LOWW | Salida: 23:46 | Llegada: 02:53 | Vuelo: 4/360 | Almacén OJAI: 4/400
+      (2) LOWW -> SBBR | Salida: 04:35 | Llegada: 16:21 | Vuelo: 4/320 | Almacén LOWW: 4/430
 
-  ENVÍO 000000001       | OYSN (Asia) -> EHAM (Europa) | 2 maletas
+  ENVÍO 000000001       | LATI (Europa) -> OPKC (Asia) | 2 maletas
     ESTADO : [OK] A TIEMPO
-    Tiempo : 11h 54m | SLA: 48h | Llegada: 02/01/2026 10:02
+    Tiempo : 7h 48m | SLA: 48h | Llegada: 02/01/2026 06:36
     Ruta:
-      (1) OYSN -> LOWW | Salida: 00:19 | Llegada: 05:57 | Cap: 340
-      (2) LOWW -> EHAM | Salida: 08:40 | Llegada: 09:52 | Cap: 300
+      (1) LATI -> OPKC | Salida: 00:23 | Llegada: 06:26 | Vuelo: 2/300 | Almacén LATI: 2/410
+
+  ENVÍO 000000004       | VIDP (Asia) -> EBCI (Europa) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 9h 46m | SLA: 48h | Llegada: 02/01/2026 08:24
+    Ruta:
+      (1) VIDP -> LBSF | Salida: 23:01 | Llegada: 05:23 | Vuelo: 2/360 | Almacén VIDP: 2/480
+      (2) LBSF -> EBCI | Salida: 06:05 | Llegada: 08:14 | Vuelo: 2/360 | Almacén LBSF: 2/400
 
   ENVÍO 000000002       | OMDB (Asia) -> LATI (Europa) | 3 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 5h 30m | SLA: 48h | Llegada: 02/01/2026 03:59
     Ruta:
-      (1) OMDB -> LATI | Salida: 23:05 | Llegada: 03:49 | Cap: 340
+      (1) OMDB -> LATI | Salida: 23:05 | Llegada: 03:49 | Vuelo: 3/340 | Almacén OMDB: 3/420
+
+  ENVÍO 000000001       | LDZA (Europa) -> OSDI (Asia) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 3h 28m | SLA: 48h | Llegada: 02/01/2026 02:20
+    Ruta:
+      (1) LDZA -> OSDI | Salida: 23:26 | Llegada: 02:10 | Vuelo: 2/300 | Almacén LDZA: 2/420
+
+  ENVÍO 000000004       | OPKC (Asia) -> SUAA (America) | 1 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 19h 16m | SLA: 48h | Llegada: 02/01/2026 17:22
+    Ruta:
+      (1) OPKC -> SUAA | Salida: 23:03 | Llegada: 17:12 | Vuelo: 1/360 | Almacén OPKC: 2/410
+
+  ENVÍO 000000002       | UMMS (Europa) -> SLLP (America) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 17h 51m | SLA: 48h | Llegada: 02/01/2026 16:42
+    Ruta:
+      (1) UMMS -> EDDI | Salida: 23:14 | Llegada: 00:30 | Vuelo: 2/340 | Almacén UMMS: 2/400
+      (2) EDDI -> SLLP | Salida: 02:57 | Llegada: 16:32 | Vuelo: 2/300 | Almacén EDDI: 2/480
+
+  ENVÍO 000000001       | OSDI (Asia) -> SCEL (America) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 20h 52m | SLA: 48h | Llegada: 02/01/2026 18:58
+    Ruta:
+      (1) OSDI -> SCEL | Salida: 02:06 | Llegada: 18:48 | Vuelo: 2/320 | Almacén OSDI: 2/400
+
+  ENVÍO 000000001       | EDDI (Europa) -> SUAA (America) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 16h 56m | SLA: 48h | Llegada: 02/01/2026 15:45
+    Ruta:
+      (1) EDDI -> SUAA | Salida: 00:55 | Llegada: 15:35 | Vuelo: 2/320 | Almacén EDDI: 4/480
+
+  ENVÍO 000000001       | OYSN (Asia) -> EHAM (Europa) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 11h 54m | SLA: 48h | Llegada: 02/01/2026 10:02
+    Ruta:
+      (1) OYSN -> LOWW | Salida: 00:19 | Llegada: 05:57 | Vuelo: 2/340 | Almacén OYSN: 2/420
+      (2) LOWW -> EHAM | Salida: 08:40 | Llegada: 09:52 | Vuelo: 2/300 | Almacén LOWW: 2/430
+
+  ENVÍO 000000003       | OAKB (Asia) -> UBBB (Asia) | 1 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 5h 49m | SLA: 24h | Llegada: 02/01/2026 04:14
+    Ruta:
+      (1) OAKB -> UBBB | Salida: 01:48 | Llegada: 04:04 | Vuelo: 1/320 | Almacén OAKB: 1/480
+
+  ENVÍO 000000002       | OERK (Asia) -> SABE (America) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 18h 18m | SLA: 48h | Llegada: 02/01/2026 17:14
+    Ruta:
+      (1) OERK -> SABE | Salida: 01:05 | Llegada: 17:04 | Vuelo: 2/300 | Almacén OERK: 2/420
 
 ------------------------------------------------------------------------------------------
-BLOQUE 5 | Envíos: 22 | Maletas: 44 | Métrica: 585.2727
+BLOQUE 5 | Envíos: 22 | Maletas: 44 | Métrica: 0.2405
 ------------------------------------------------------------------------------------------
-  ENVÍO 000000001       | EKCH (Europa) -> SPIM (America) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 16h 46m | SLA: 48h | Llegada: 02/01/2026 15:52
-    Ruta:
-      (1) EKCH -> LKPR | Salida: 23:47 | Llegada: 00:30 | Cap: 340
-      (2) LKPR -> EBCI | Salida: 01:31 | Llegada: 02:24 | Cap: 300
-      (3) EBCI -> SPIM | Salida: 02:38 | Llegada: 15:42 | Cap: 320
-
-  ENVÍO 000000003       | OMDB (Asia) -> OAKB (Asia) | 3 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 2h 47m | SLA: 24h | Llegada: 02/01/2026 02:27
-    Ruta:
-      (1) OMDB -> OAKB | Salida: 00:11 | Llegada: 02:17 | Cap: 320
-
-  ENVÍO 000000004       | OOMS (Asia) -> LATI (Europa) | 1 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 9h 54m | SLA: 48h | Llegada: 02/01/2026 09:07
-    Ruta:
-      (1) OOMS -> EDDI | Salida: 23:52 | Llegada: 06:08 | Cap: 300
-      (2) EDDI -> LATI | Salida: 07:19 | Llegada: 08:57 | Cap: 320
-
-  ENVÍO 000000002       | EBCI (Europa) -> SVMI (America) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 14h 21m | SLA: 48h | Llegada: 02/01/2026 13:57
-    Ruta:
-      (1) EBCI -> SKBO | Salida: 23:49 | Llegada: 10:54 | Cap: 360
-      (2) SKBO -> SVMI | Salida: 12:24 | Llegada: 13:47 | Cap: 300
-
-  ENVÍO 000000005       | OOMS (Asia) -> OYSN (Asia) | 1 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 8h 40m | SLA: 24h | Llegada: 02/01/2026 08:34
-    Ruta:
-      (1) OOMS -> OAKB | Salida: 00:58 | Llegada: 03:00 | Cap: 300
-      (2) OAKB -> OYSN | Salida: 04:17 | Llegada: 08:24 | Cap: 360
-
-  ENVÍO 000000005       | OAKB (Asia) -> LDZA (Europa) | 1 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 9h 46m | SLA: 48h | Llegada: 02/01/2026 09:43
-    Ruta:
-      (1) OAKB -> UBBB | Salida: 01:48 | Llegada: 04:04 | Cap: 320
-      (2) UBBB -> LDZA | Salida: 06:01 | Llegada: 09:33 | Cap: 300
-
-  ENVÍO 000000003       | LBSF (Europa) -> VIDP (Asia) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 9h 15m | SLA: 48h | Llegada: 02/01/2026 08:48
-    Ruta:
-      (1) LBSF -> LATI | Salida: 00:17 | Llegada: 00:43 | Cap: 300
-      (2) LATI -> VIDP | Salida: 01:50 | Llegada: 08:38 | Cap: 360
-
-  ENVÍO 000000002       | LATI (Europa) -> OMDB (Asia) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 9h 32m | SLA: 48h | Llegada: 02/01/2026 09:08
-    Ruta:
-      (1) LATI -> OSDI | Salida: 00:02 | Llegada: 02:13 | Cap: 360
-      (2) OSDI -> OMDB | Salida: 06:24 | Llegada: 08:58 | Cap: 340
-
   ENVÍO 000000002       | OJAI (Asia) -> EDDI (Europa) | 3 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 7h 15m | SLA: 48h | Llegada: 02/01/2026 06:57
     Ruta:
-      (1) OJAI -> LBSF | Salida: 02:43 | Llegada: 04:45 | Cap: 360
-      (2) LBSF -> EDDI | Salida: 05:06 | Llegada: 06:47 | Cap: 320
+      (1) OJAI -> LBSF | Salida: 02:43 | Llegada: 04:45 | Vuelo: 3/360 | Almacén OJAI: 3/400
+      (2) LBSF -> EDDI | Salida: 05:06 | Llegada: 06:47 | Vuelo: 3/320 | Almacén LBSF: 3/400
 
   ENVÍO 000000003       | UMMS (Europa) -> OSDI (Asia) | 2 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 3h 25m | SLA: 48h | Llegada: 02/01/2026 03:08
     Ruta:
-      (1) UMMS -> OSDI | Salida: 00:04 | Llegada: 02:58 | Cap: 320
-
-  ENVÍO 000000001       | EHAM (Europa) -> OAKB (Asia) | 3 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 10h 43m | SLA: 48h | Llegada: 02/01/2026 10:03
-    Ruta:
-      (1) EHAM -> UBBB | Salida: 01:42 | Llegada: 06:23 | Cap: 300
-      (2) UBBB -> OAKB | Salida: 07:37 | Llegada: 09:53 | Cap: 300
-
-  ENVÍO 000000002       | OYSN (Asia) -> OPKC (Asia) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 10h 29m | SLA: 24h | Llegada: 02/01/2026 09:36
-    Ruta:
-      (1) OYSN -> OPKC | Salida: 06:10 | Llegada: 09:26 | Cap: 320
-
-  ENVÍO 000000001       | UBBB (Asia) -> LBSF (Europa) | 3 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 3h 30m | SLA: 48h | Llegada: 02/01/2026 02:44
-    Ruta:
-      (1) UBBB -> LBSF | Salida: 23:43 | Llegada: 02:34 | Cap: 320
-
-  ENVÍO 000000002       | OSDI (Asia) -> EBCI (Europa) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 6h 36m | SLA: 48h | Llegada: 02/01/2026 05:45
-    Ruta:
-      (1) OSDI -> EBCI | Salida: 01:32 | Llegada: 05:35 | Cap: 320
-
-  ENVÍO 000000001       | LOWW (Europa) -> LATI (Europa) | 3 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 3h 17m | SLA: 24h | Llegada: 02/01/2026 02:31
-    Ruta:
-      (1) LOWW -> LATI | Salida: 01:20 | Llegada: 02:21 | Cap: 300
-
-  ENVÍO 000000004       | OAKB (Asia) -> OERK (Asia) | 1 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 6h 15m | SLA: 24h | Llegada: 02/01/2026 05:23
-    Ruta:
-      (1) OAKB -> VIDP | Salida: 23:26 | Llegada: 00:42 | Cap: 300
-      (2) VIDP -> OERK | Salida: 01:18 | Llegada: 05:13 | Cap: 360
-
-  ENVÍO 000000002       | EDDI (Europa) -> SPIM (America) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 15h 33m | SLA: 48h | Llegada: 02/01/2026 15:09
-    Ruta:
-      (1) EDDI -> SPIM | Salida: 01:05 | Llegada: 14:59 | Cap: 360
-
-  ENVÍO 000000005       | VIDP (Asia) -> SCEL (America) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 26h 41m | SLA: 48h | Llegada: 03/01/2026 02:09
-    Ruta:
-      (1) VIDP -> EBCI | Salida: 01:58 | Llegada: 10:07 | Cap: 360
-      (2) EBCI -> SCEL | Salida: 11:13 | Llegada: 01:59 | Cap: 360
+      (1) UMMS -> OSDI | Salida: 00:04 | Llegada: 02:58 | Vuelo: 2/320 | Almacén UMMS: 2/400
 
   ENVÍO 000000006       | OPKC (Asia) -> SCEL (America) | 1 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 23h 30m | SLA: 48h | Llegada: 02/01/2026 23:09
     Ruta:
-      (1) OPKC -> SLLP | Salida: 01:15 | Llegada: 20:26 | Cap: 360
-      (2) SLLP -> SCEL | Salida: 20:36 | Llegada: 22:59 | Cap: 340
-
-  ENVÍO 000000001       | LKPR (Europa) -> LBSF (Europa) | 2 maletas
-    ESTADO : [OK] A TIEMPO
-    Tiempo : 4h 53m | SLA: 24h | Llegada: 02/01/2026 04:00
-    Ruta:
-      (1) LKPR -> LDZA | Salida: 01:15 | Llegada: 01:58 | Cap: 300
-      (2) LDZA -> LBSF | Salida: 03:01 | Llegada: 03:50 | Cap: 320
+      (1) OPKC -> SLLP | Salida: 01:15 | Llegada: 20:26 | Vuelo: 1/360 | Almacén OPKC: 1/410
+      (2) SLLP -> SCEL | Salida: 20:36 | Llegada: 22:59 | Vuelo: 1/340 | Almacén SLLP: 1/420
 
   ENVÍO 000000002       | LDZA (Europa) -> EBCI (Europa) | 2 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 2h 59m | SLA: 24h | Llegada: 02/01/2026 02:43
     Ruta:
-      (1) LDZA -> EBCI | Salida: 01:14 | Llegada: 02:33 | Cap: 300
+      (1) LDZA -> EBCI | Salida: 01:14 | Llegada: 02:33 | Vuelo: 2/300 | Almacén LDZA: 4/420
+
+  ENVÍO 000000001       | EHAM (Europa) -> OAKB (Asia) | 3 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 10h 43m | SLA: 48h | Llegada: 02/01/2026 10:03
+    Ruta:
+      (1) EHAM -> UBBB | Salida: 01:42 | Llegada: 06:23 | Vuelo: 3/300 | Almacén EHAM: 3/480
+      (2) UBBB -> OAKB | Salida: 07:37 | Llegada: 09:53 | Vuelo: 3/300 | Almacén UBBB: 3/400
+
+  ENVÍO 000000002       | EBCI (Europa) -> SVMI (America) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 14h 21m | SLA: 48h | Llegada: 02/01/2026 13:57
+    Ruta:
+      (1) EBCI -> SKBO | Salida: 23:49 | Llegada: 10:54 | Vuelo: 2/360 | Almacén EBCI: 2/440
+      (2) SKBO -> SVMI | Salida: 12:24 | Llegada: 13:47 | Vuelo: 2/300 | Almacén SKBO: 2/430
+
+  ENVÍO 000000001       | LOWW (Europa) -> LATI (Europa) | 3 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 3h 17m | SLA: 24h | Llegada: 02/01/2026 02:31
+    Ruta:
+      (1) LOWW -> LATI | Salida: 01:20 | Llegada: 02:21 | Vuelo: 3/300 | Almacén LOWW: 3/430
+
+  ENVÍO 000000001       | UBBB (Asia) -> LBSF (Europa) | 3 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 3h 30m | SLA: 48h | Llegada: 02/01/2026 02:44
+    Ruta:
+      (1) UBBB -> LBSF | Salida: 23:43 | Llegada: 02:34 | Vuelo: 3/320 | Almacén UBBB: 3/400
+
+  ENVÍO 000000003       | OMDB (Asia) -> OAKB (Asia) | 3 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 2h 47m | SLA: 24h | Llegada: 02/01/2026 02:27
+    Ruta:
+      (1) OMDB -> OAKB | Salida: 00:11 | Llegada: 02:17 | Vuelo: 3/320 | Almacén OMDB: 3/420
+
+  ENVÍO 000000001       | EKCH (Europa) -> SPIM (America) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 16h 46m | SLA: 48h | Llegada: 02/01/2026 15:52
+    Ruta:
+      (1) EKCH -> LKPR | Salida: 23:47 | Llegada: 00:30 | Vuelo: 2/340 | Almacén EKCH: 2/480
+      (2) LKPR -> EBCI | Salida: 01:31 | Llegada: 02:24 | Vuelo: 2/300 | Almacén LKPR: 4/400
+      (3) EBCI -> SPIM | Salida: 02:38 | Llegada: 15:42 | Vuelo: 2/320 | Almacén EBCI: 2/440
+
+  ENVÍO 000000004       | OOMS (Asia) -> LATI (Europa) | 1 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 9h 54m | SLA: 48h | Llegada: 02/01/2026 09:07
+    Ruta:
+      (1) OOMS -> EDDI | Salida: 23:52 | Llegada: 06:08 | Vuelo: 1/300 | Almacén OOMS: 2/460
+      (2) EDDI -> LATI | Salida: 07:19 | Llegada: 08:57 | Vuelo: 1/320 | Almacén EDDI: 1/480
+
+  ENVÍO 000000003       | LBSF (Europa) -> VIDP (Asia) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 9h 15m | SLA: 48h | Llegada: 02/01/2026 08:48
+    Ruta:
+      (1) LBSF -> LATI | Salida: 00:17 | Llegada: 00:43 | Vuelo: 2/300 | Almacén LBSF: 2/400
+      (2) LATI -> VIDP | Salida: 01:50 | Llegada: 08:38 | Vuelo: 2/360 | Almacén LATI: 2/410
+
+  ENVÍO 000000002       | EDDI (Europa) -> SPIM (America) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 15h 33m | SLA: 48h | Llegada: 02/01/2026 15:09
+    Ruta:
+      (1) EDDI -> SPIM | Salida: 01:05 | Llegada: 14:59 | Vuelo: 2/360 | Almacén EDDI: 2/480
+
+  ENVÍO 000000001       | LKPR (Europa) -> LBSF (Europa) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 4h 53m | SLA: 24h | Llegada: 02/01/2026 04:00
+    Ruta:
+      (1) LKPR -> LDZA | Salida: 01:15 | Llegada: 01:58 | Vuelo: 2/300 | Almacén LKPR: 4/400
+      (2) LDZA -> LBSF | Salida: 03:01 | Llegada: 03:50 | Vuelo: 2/320 | Almacén LDZA: 2/420
+
+  ENVÍO 000000005       | OOMS (Asia) -> OYSN (Asia) | 1 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 8h 40m | SLA: 24h | Llegada: 02/01/2026 08:34
+    Ruta:
+      (1) OOMS -> OAKB | Salida: 00:58 | Llegada: 03:00 | Vuelo: 1/300 | Almacén OOMS: 1/460
+      (2) OAKB -> OYSN | Salida: 04:17 | Llegada: 08:24 | Vuelo: 1/360 | Almacén OAKB: 1/480
 
   ENVÍO 000000003       | OERK (Asia) -> EKCH (Europa) | 2 maletas
     ESTADO : [OK] A TIEMPO
     Tiempo : 8h 29m | SLA: 48h | Llegada: 02/01/2026 08:23
     Ruta:
-      (1) OERK -> EKCH | Salida: 02:39 | Llegada: 08:13 | Cap: 340
+      (1) OERK -> EKCH | Salida: 02:39 | Llegada: 08:13 | Vuelo: 2/340 | Almacén OERK: 2/420
+
+  ENVÍO 000000004       | OAKB (Asia) -> OERK (Asia) | 1 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 6h 15m | SLA: 24h | Llegada: 02/01/2026 05:23
+    Ruta:
+      (1) OAKB -> VIDP | Salida: 23:26 | Llegada: 00:42 | Vuelo: 1/300 | Almacén OAKB: 2/480
+      (2) VIDP -> OERK | Salida: 01:18 | Llegada: 05:13 | Vuelo: 1/360 | Almacén VIDP: 3/480
+
+  ENVÍO 000000005       | OAKB (Asia) -> LDZA (Europa) | 1 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 9h 46m | SLA: 48h | Llegada: 02/01/2026 09:43
+    Ruta:
+      (1) OAKB -> UBBB | Salida: 01:48 | Llegada: 04:04 | Vuelo: 1/320 | Almacén OAKB: 1/480
+      (2) UBBB -> LDZA | Salida: 06:01 | Llegada: 09:33 | Vuelo: 1/300 | Almacén UBBB: 4/400
+
+  ENVÍO 000000005       | VIDP (Asia) -> SCEL (America) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 26h 41m | SLA: 48h | Llegada: 03/01/2026 02:09
+    Ruta:
+      (1) VIDP -> EBCI | Salida: 01:58 | Llegada: 10:07 | Vuelo: 2/360 | Almacén VIDP: 3/480
+      (2) EBCI -> SCEL | Salida: 11:13 | Llegada: 01:59 | Vuelo: 2/360 | Almacén EBCI: 2/440
+
+  ENVÍO 000000002       | OSDI (Asia) -> EBCI (Europa) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 6h 36m | SLA: 48h | Llegada: 02/01/2026 05:45
+    Ruta:
+      (1) OSDI -> EBCI | Salida: 01:32 | Llegada: 05:35 | Vuelo: 2/320 | Almacén OSDI: 2/400
+
+  ENVÍO 000000002       | LATI (Europa) -> OMDB (Asia) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 9h 32m | SLA: 48h | Llegada: 02/01/2026 09:08
+    Ruta:
+      (1) LATI -> OSDI | Salida: 00:02 | Llegada: 02:13 | Vuelo: 2/360 | Almacén LATI: 4/410
+      (2) OSDI -> OMDB | Salida: 06:24 | Llegada: 08:58 | Vuelo: 2/340 | Almacén OSDI: 2/400
+
+  ENVÍO 000000002       | OYSN (Asia) -> OPKC (Asia) | 2 maletas
+    ESTADO : [OK] A TIEMPO
+    Tiempo : 10h 29m | SLA: 24h | Llegada: 02/01/2026 09:36
+    Ruta:
+      (1) OYSN -> OPKC | Salida: 06:10 | Llegada: 09:26 | Vuelo: 2/320 | Almacén OYSN: 2/420
 
 ==========================================================================================
   RESUMEN ESTADÍSTICO
@@ -371,5 +371,5 @@ BLOQUE 5 | Envíos: 22 | Maletas: 44 | Métrica: 585.2727
   Envíos a tiempo (SLA OK) : 52
   Envíos en colapso        : 0
   Tasa de éxito            : 100.0%
-  Tiempo total simulación  : 100s
+  Tiempo total simulación  : 50s
 ==========================================================================================
