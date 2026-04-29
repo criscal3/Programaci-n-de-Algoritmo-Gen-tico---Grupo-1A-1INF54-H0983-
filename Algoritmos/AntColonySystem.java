@@ -34,7 +34,7 @@ public class AntColonySystem {
 
         // --- 2. Parámetros del ACS ---
         final double rho       = 0.1;
-        final int    mHormigas = 20;
+        final int    mHormigas = 10;
 
         long tiempoInicio = System.currentTimeMillis();
 

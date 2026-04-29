@@ -178,7 +178,7 @@ public class Simulador {
                 PlanificationSolutionOutput solucion = ejecutarAlgoritmo(subInput);
                 long duracion = System.currentTimeMillis() - t0;
 
-                Logger.info("Algoritmo ejecutado en " + duracion + "ms | Métrica: "
+                Logger.info("Algoritmo ejecutado en " + duracion + "ms | Porcentaje de consumo de SLA: "
                         + String.format("%.4f", solucion.getMetricaUnificada()));
 
                 todasLasSoluciones.add(solucion);
@@ -191,7 +191,7 @@ public class Simulador {
                     Logger.info("¡COLAPSO! Sistema fuera de SLA en iteración " + iteracion);
                 }
 
-                System.out.printf(" -> Tiempo ejecución algoritmo: %dms | Métrica calidad: %.4f%n",
+                System.out.printf(" -> Tiempo ejecución algoritmo: %dms | Porcentaje de consumo de SLA: %.4f%n",
                         duracion, solucion.getMetricaUnificada());
 
             } else {
@@ -365,7 +365,7 @@ public class Simulador {
             for (int b = 0; b < soluciones.size(); b++) {
                 PlanificationSolutionOutput sol = soluciones.get(b);
                 pw.println("-".repeat(90));
-                pw.printf("BLOQUE %d | Envíos: %d | Maletas: %d | Métrica: %.4f%n",
+                pw.printf("BLOQUE %d | Envíos: %d | Maletas: %d | Porcentaje de consumo de SLA: %.4f%n",
                         b + 1, sol.totalEnvios(), sol.totalMaletas(), sol.getMetricaUnificada());
                 pw.println("-".repeat(90));
 
