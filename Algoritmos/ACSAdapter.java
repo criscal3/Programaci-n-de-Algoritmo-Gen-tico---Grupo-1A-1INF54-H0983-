@@ -27,7 +27,8 @@ public class ACSAdapter {
         for (AeropuertoAlgoritmo aa : input.getMapaAeropuertos().values()) {
             mapaAeropuertosACS.put(aa.getOaci(),
                     new Aeropuerto(aa.getOaci(), aa.getContinente(),
-                            aa.getGmt(), aa.getCapacidadAlmacen()));
+                            aa.getGmt(), aa.getCapacidadAlmacen(), 
+                            aa.getLatitud(), aa.getLongitud()));
         }
 
         // --- 2. Vuelo ACS interno + mapa inverso id → VueloAlgoritmo ---

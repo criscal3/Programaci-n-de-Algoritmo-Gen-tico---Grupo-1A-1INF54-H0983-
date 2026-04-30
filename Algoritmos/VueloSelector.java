@@ -19,11 +19,8 @@ public class VueloSelector {
         List<Vuelo> Ni = candidatosViables(p, ruta, input);
         if (Ni == null || Ni.isEmpty()) return null;
 
-        final double q0   = 0.7;
+        final double q0   = 0.3;
         final double beta = 2.0;
-
-        double wi = tiempoDisponibleActual(p, ruta);
-        double aj = p.getTiempoCreacion().getHour() + p.getTiempoCreacion().getMinute() / 60.0;
 
         double[] valor     = new double[Ni.size()];
         double   sumaValor = 0.0;
@@ -31,20 +28,44 @@ public class VueloSelector {
         double   mejorVal  = -1.0;
 
         for (int idx = 0; idx < Ni.size(); idx++) {
-            Vuelo j   = Ni.get(idx);
-            double tij = duracionHorasUTC(j, input);
-            double sj  = Math.max(wi + tij, aj);
-            double oj  = tij;
-            double Rij = sj + oj - aj;
-            if (Rij <= 0) Rij = 0.001;
+            Vuelo j = Ni.get(idx);
+            
+            // 1. Cronología exacta usando LocalDateTime
+            LocalDateTime disp = getDisponibilidadAbsoluta(p, ruta);
+            
+            // ¿Cuándo sale el vuelo? (Sumamos 1 día si sale mañana)
+            LocalDateTime salida = disp.toLocalDate().atTime(j.getHoraSalida());
+            if (salida.isBefore(disp)) salida = salida.plusDays(1);
+            
+            // ¿Cuándo llega el vuelo? (Sumamos 1 día si cruza la medianoche)
+            LocalDateTime llegada = salida.toLocalDate().atTime(j.getHoraLlegada());
+            if (llegada.isBefore(salida)) llegada = llegada.plusDays(1);
+
+            // 2. El costo real (Rij): Horas transcurridas desde la creación hasta el aterrizaje
+            // Esto incluye automáticamente el tiempo de espera en el aeropuerto y el tiempo de vuelo.
+            double Rij = java.time.Duration.between(p.getTiempoCreacion(), llegada).toMinutes() / 60.0;
+
+            // 3. Sumar la heurística espacial (Haversine)
+            double costoRestante = estimarTiempoRestante(j.getDestino(), p.getDestino(), input);
+            Rij += costoRestante;
+            
+            if (Rij <= 0) Rij = 0.001; // Seguridad por si Rij da 0
+            
+            // Inversamente proporcional: A menor tiempo total proyectado, más deseable es el vuelo
             double eta_ij = 1.0 / Rij;
 
-            String key    = p.getId() + "-" + j.getId();
-            double tau_ij = feromonas.getOrDefault(key, tau0);
-            double v      = tau_ij * Math.pow(eta_ij, beta);
-            valor[idx]    = v;
-            sumaValor    += v;
-            if (v > mejorVal) { mejorVal = v; mejorIdx = idx; }
+            // 4. Leer feromonas usando la clave correcta
+            String flightKey = j.getId() + "-" + salida.toLocalDate();
+            double tau = feromonas.getOrDefault(flightKey, tau0);
+
+            // 5. Calcular probabilidad
+            valor[idx] = tau * Math.pow(eta_ij, beta);
+            sumaValor += valor[idx];
+
+            if (valor[idx] > mejorVal) {
+                mejorVal = valor[idx];
+                mejorIdx = idx;
+            }
         }
 
         if (random.nextDouble() <= q0) return Ni.get(mejorIdx);
@@ -57,6 +78,33 @@ public class VueloSelector {
             if (acum >= tirada) return Ni.get(idx);
         }
         return Ni.get(Ni.size() - 1);
+    }
+
+    private static double estimarTiempoRestante(String nodoIntermedio, String destinoFinal, PlanificationProblemInputACS input) {
+        if (nodoIntermedio.equals(destinoFinal)) return 0.0;
+
+        Aeropuerto aInter = input.getAeropuerto(nodoIntermedio);
+        Aeropuerto aDest = input.getAeropuerto(destinoFinal);
+        if (aInter == null || aDest == null) return 12.0;
+
+        // Fórmula de Haversine
+        double lat1 = Math.toRadians(aInter.getLatitud());
+        double lon1 = Math.toRadians(aInter.getLongitud());
+        double lat2 = Math.toRadians(aDest.getLatitud());
+        double lon2 = Math.toRadians(aDest.getLongitud());
+
+        double dLat = lat2 - lat1;
+        double dLon = lon2 - lon1;
+
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                   Math.cos(lat1) * Math.cos(lat2) *
+                   Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distanciaKm = 6371.0 * c; // Radio de la Tierra en Km
+
+        // Asumiendo velocidad comercial de 950 km/h + 4 horas de penalidad por hacer escala
+        return (distanciaKm / 950.0); 
     }
 
     // ---- Disponibilidad absoluta del pedido en su nodo actual ----
@@ -104,7 +152,7 @@ public class VueloSelector {
             if (llegada.isBefore(salida)) llegada = llegada.plusDays(1);
 
             if (llegada.isAfter(p.getTiempoLimite())) continue;
-
+            
             String flightKey = v.getId() + "-" + salida.toLocalDate().toString();
             int usoGlobal = input.getOcupacionGlobalVuelos(flightKey);
             int usoLocal  = ruta.getOcupacionVuelo(flightKey);
@@ -142,24 +190,4 @@ public class VueloSelector {
         return viables;
     }
 
-    // ---- Helpers privados ----
-
-    private static double tiempoDisponibleActual(Pedido p, Ruta ruta) {
-        java.time.LocalDateTime disp = getDisponibilidadAbsoluta(p, ruta);
-        return java.time.Duration.between(p.getTiempoCreacion(), disp).toMinutes() / 60.0;
-    }
-
-    private static double duracionHorasUTC(Vuelo j, PlanificationProblemInputACS input) {
-        double s = j.getHoraSalida().toSecondOfDay()  / 3600.0;
-        double l = j.getHoraLlegada().toSecondOfDay() / 3600.0;
-        Aeropuerto src = input.getAeropuerto(j.getOrigen());
-        Aeropuerto dst = input.getAeropuerto(j.getDestino());
-        if (src != null && dst != null) {
-            s -= src.getHusoHorario();
-            l -= dst.getHusoHorario();
-        }
-        double dur = l - s;
-        if (dur <= 0) dur += 24.0;
-        return dur;
-    }
 }
