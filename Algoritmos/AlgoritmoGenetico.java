@@ -437,17 +437,23 @@ public class AlgoritmoGenetico {
     }
 
     private boolean hayEspacioEnAlmacen(String oaci, LocalDateTime desde, LocalDateTime hasta, int cantidad, int capacidadMax, Map<String, Integer> almacenDinamico) {
-        for (LocalDateTime t = desde; t.isBefore(hasta); t = t.plusHours(1)) {
-            String clave = oaci + "-" + t.toLocalDate() + "-" + t.getHour();
+        
+        LocalDateTime tiempoEvaluacion = desde.truncatedTo(ChronoUnit.HOURS);
+        LocalDateTime tiempoFin = hasta.truncatedTo(ChronoUnit.HOURS);
+
+        while (!tiempoEvaluacion.isAfter(tiempoFin)) {
+            String clave = oaci + "-" + tiempoEvaluacion.toLocalDate() + "-" + tiempoEvaluacion.getHour();
             
-            // Sumamos la ocupación real del sistema + la simulación del cromosoma
             int ocupacionGlobal = ocupacionAlmacenesFisicos.getOrDefault(clave, 0);
             int ocupacionLocal = almacenDinamico.getOrDefault(clave, 0);
             
             if (ocupacionGlobal + ocupacionLocal + cantidad > capacidadMax) {
-                return false; 
+                return false; // Se detectó un sobrecupo real
             }
+            
+            tiempoEvaluacion = tiempoEvaluacion.plusHours(1);
         }
+        
         return true;
     }
 
