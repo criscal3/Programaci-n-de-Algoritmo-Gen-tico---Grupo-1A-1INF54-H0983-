@@ -7,77 +7,82 @@ import java.util.concurrent.ConcurrentHashMap;
  * ACS adaptado según el paper "An Ant Colony System for Responsive Dynamic Vehicle Routing"
  * de M. Schyns (Gambardella et al. 1999).
  *
- * Usa PlanificationProblemInputACS y PlanificationSolutionOutputACS internamente.
- * El adaptador ACSAdapter se encarga de la traducción hacia/desde las estructuras del AG.
+ * Mejora clave: cada hormiga usa A* guiado por feromonas (en lugar de selección greedy
+ * hop-a-hop) para encontrar rutas completas. Los pedidos se procesan ordenados por
+ * urgencia (deadline más próximo primero), lo que evita que envíos tardíos consuman
+ * la capacidad necesaria para envíos con SLA más ajustado.
  */
 public class AntColonySystem {
+
+    // ======= PARÁMETROS CONFIGURABLES =======
+    /** Tasa de evaporación de feromonas (local y global). */
+    private static final double RHO             = 0.4;
+    /** Número de hormigas por iteración del bucle principal. */
+    private static final int    M_HORMIGAS      = 10;
+    /** Saltos máximos en la búsqueda A* (profundidad del grafo de rutas). */
+    private static final int    MAX_SALTOS_ASTAR = 8;
+    /** Pares máximos evaluados en busquedaLocalCROSS por pedido. */
+    private static final int    MAX_CROSS_PAIRS  = 50;
+    /** Entradas máximas en el mapa de feromonas antes de limpiar. */
+    private static final int    MAX_FEROMONAS    = 500_000;
+    /** Máx. pedidos procesados en la solución inicial para entradas muy grandes. */
+    private static final int    MAX_PEDIDOS_FIFO  = 100;
+    // ========================================
 
     public static PlanificationSolutionOutputACS ACS_TASF(
             PlanificationProblemInputACS input, Instant reloj, long maxTiempoMs) {
 
         int n = input.getPedidos().size();
-        if (n == 0) {
-            return new PlanificationSolutionOutputACS(new ArrayList<>());
-        }
+        if (n == 0) return new PlanificationSolutionOutputACS(new ArrayList<>());
 
-        // --- 1. Inicialización con solución greedy ---
-        PlanificationSolutionOutputACS psiStar = construirSolucionInicial_FIFO(input, reloj);
+        // --- 1. Solución inicial con A* puro (sin feromonas aún) ---
+        PlanificationSolutionOutputACS psiStar = construirSolucionInicial(input);
         double Rstar = calcularResponsiveness(psiStar, input);
         double Tstar = calcularDistanciaTotal(psiStar);
-        
-        double tau0;
-        
-        tau0 = Rstar > 0 
-                   ? 1.0 / (n * Math.max(Rstar / n, 0.01)) 
-                   : 1.0 / Math.max(n, 1);
+
+        double tau0 = Rstar > 0
+                ? 1.0 / (n * Math.max(Rstar / n, 0.01))
+                : 1.0 / Math.max(n, 1);
 
         Map<String, Double> feromonas = new ConcurrentHashMap<>();
-
-        // --- 2. Parámetros del ACS ---
-        final double rho       = 0.4;
-        final int    mHormigas = 10;
-
         long tiempoInicio = System.currentTimeMillis();
 
-        // --- 3. Bucle principal ---
+        // Ordenar pedidos por urgencia UNA vez — se reutiliza en cada hormiga
+        List<Pedido> pedidosPorUrgencia = new ArrayList<>(input.getPedidos());
+        pedidosPorUrgencia.sort(Comparator.comparing(Pedido::getTiempoLimite));
+
+        // --- 2. Bucle principal ACS ---
         while (System.currentTimeMillis() - tiempoInicio < maxTiempoMs) {
 
-            for (int h = 0; h < mHormigas; h++) {
+            for (int h = 0; h < M_HORMIGAS; h++) {
                 Ruta ruta = new Ruta();
+                VueloSelector.limpiarCacheDisponibilidad();
 
-                for (Pedido pedido : input.getPedidos()) {
-                    
-                    int saltosMaximos = 5; // Evitar bucles infinitos
-                    int saltosActuales = 0;
+                for (Pedido pedido : pedidosPorUrgencia) {
 
-                    // 2. LA HORMIGA CAMINA SALTO A SALTO HASTA LLEGAR AL DESTINO
-                    while (!ruta.getUbicacionActual(pedido).equals(pedido.getDestino()) && saltosActuales < saltosMaximos) {
-                        
-                        Vuelo vuelo = VueloSelector.seleccionarSiguienteVuelo(
-                                pedido, ruta, feromonas, tau0, input, reloj);
-                        
-                        if (vuelo == null) {
-                            break; // Callejón sin salida (no hay capacidad o se venció el SLA)
-                        }
+                    // Skip pedidos ya en su destino
+                    if (ruta.getUbicacionActual(pedido).equals(pedido.getDestino())) continue;
 
-                        // 3. Calculamos Tiempos
-                        LocalDateTime llegadaAeropuerto = VueloSelector.getDisponibilidadAbsoluta(pedido, ruta);
-                        LocalDateTime salidaDelVuelo = llegadaAeropuerto.toLocalDate().atTime(vuelo.getHoraSalida());
-                        if (salidaDelVuelo.isBefore(llegadaAeropuerto)) {
-                            salidaDelVuelo = salidaDelVuelo.plusDays(1);
-                        }
+                    // A* guiado por feromonas: encuentra la ruta completa óptima
+                    List<Vuelo> rutaCompleta = VueloSelector.encontrarRutaCompletaAstar(
+                            pedido, ruta, feromonas, tau0, input, MAX_SALTOS_ASTAR);
 
-                        // 4. Registramos Asignación y Almacén (Memoria Local)
+                    if (rutaCompleta == null) continue; // sin ruta posible
+
+                    // Registrar todos los vuelos de la ruta y actualizar feromonas localmente
+                    for (Vuelo vuelo : rutaCompleta) {
+                        LocalDateTime disp = VueloSelector.getDisponibilidadAbsoluta(pedido, ruta);
+                        LocalDateTime salidaDelVuelo = disp.toLocalDate().atTime(vuelo.getHoraSalida());
+                        if (salidaDelVuelo.isBefore(disp)) salidaDelVuelo = salidaDelVuelo.plusDays(1);
+
                         String flightKey = vuelo.getId() + "-" + salidaDelVuelo.toLocalDate();
                         ruta.agregarAsignacion(pedido, vuelo);
-                        ruta.registrarUsoAlmacen(vuelo.getOrigen(), llegadaAeropuerto, salidaDelVuelo, pedido.getCantidadMaletas());
+                        ruta.registrarUsoAlmacen(vuelo.getOrigen(), disp,
+                                salidaDelVuelo, pedido.getCantidadMaletas());
 
-                        // 5. ACTUALIZACIÓN LOCAL DE FEROMONAS (Crucial para ACS)
-                        // Disminuye el "olor" de este vuelo para obligar a otras hormigas a buscar alternativas
+                        // Actualización local de feromonas (reduce atractivo para otras hormigas)
                         double tauActual = feromonas.getOrDefault(flightKey, tau0);
-                        feromonas.put(flightKey, (1 - rho) * tauActual + rho * tau0);
-
-                        saltosActuales++;
+                        feromonas.put(flightKey, (1 - RHO) * tauActual + RHO * tau0);
                     }
                 }
 
@@ -86,7 +91,6 @@ public class AntColonySystem {
                 double Rpsi = calcularResponsiveness(ruta.aPlanificationSolution(), input);
                 double Tpsi = calcularDistanciaTotal(ruta.aPlanificationSolution());
 
-                
                 final double EPS = 1e-6;
                 if (Rpsi < Rstar - EPS || (Math.abs(Rpsi - Rstar) < EPS && Tpsi < Tstar)) {
                     psiStar = ruta.aPlanificationSolution();
@@ -95,12 +99,21 @@ public class AntColonySystem {
                 }
             }
 
-            // Actualización GLOBAL
+            // Limitar tamaño del mapa de feromonas
+            if (feromonas.size() > MAX_FEROMONAS) {
+                double umbral = tau0 * 0.01;
+                feromonas.entrySet().removeIf(e -> e.getValue() < umbral);
+                if (feromonas.size() > MAX_FEROMONAS / 2) {
+                    feromonas.replaceAll((k, v) -> v * (1 - RHO * 5));
+                }
+            }
+
+            // Actualización global: reforzar rutas de la mejor solución encontrada
             if (Rstar > 0) {
                 for (Asignacion a : psiStar.getAsignaciones()) {
-                    String key = a.getFlightKey(); 
+                    String key = a.getFlightKey();
                     double tauActual = feromonas.getOrDefault(key, tau0);
-                    feromonas.put(key, (1 - rho) * tauActual + rho / Rstar);
+                    feromonas.put(key, (1 - RHO) * tauActual + RHO / Rstar);
                 }
             }
         }
@@ -109,7 +122,7 @@ public class AntColonySystem {
     }
 
     // =======================================================================
-    //  Métricas
+    //  Métricas — sin cambios (lógica algorítmica intacta)
     // =======================================================================
 
     public static double calcularResponsiveness(
@@ -117,53 +130,40 @@ public class AntColonySystem {
 
         if (sol == null || sol.getAsignaciones().isEmpty()) return Double.MAX_VALUE / 2;
 
-        // 1. Agrupar las asignaciones por pedido en orden de ejecución
         Map<String, List<Vuelo>> rutasPorPedido = new HashMap<>();
         for (Asignacion a : sol.getAsignaciones()) {
-            rutasPorPedido.computeIfAbsent(a.getPedido().getId(), k -> new ArrayList<>()).add(a.getVuelo());
+            rutasPorPedido.computeIfAbsent(a.getPedido().getId(), k -> new ArrayList<>())
+                          .add(a.getVuelo());
         }
 
         double R = 0.0;
-
         for (Pedido p : input.getPedidos()) {
             List<Vuelo> vuelos = rutasPorPedido.get(p.getId());
 
-            // Si el paquete no tiene ningún vuelo asignado (colapsó en el origen)
             if (vuelos == null || vuelos.isEmpty()) {
-                R += 1_000_000.0; 
+                R += 1_000_000.0;
                 continue;
             }
 
-            // 2. Simular el viaje cronológico para obtener la hora EXACTA de llegada final
             LocalDateTime tiempoCursor = p.getTiempoCreacion();
             String ubicacionActual = p.getOrigen();
 
             for (Vuelo v : vuelos) {
-                // Calcular salida de este salto
                 LocalDateTime salida = tiempoCursor.toLocalDate().atTime(v.getHoraSalida());
-                if (salida.isBefore(tiempoCursor)) {
-                    salida = salida.plusDays(1);
-                }
-                
-                // Calcular llegada de este salto
+                if (salida.isBefore(tiempoCursor)) salida = salida.plusDays(1);
                 LocalDateTime llegada = salida.toLocalDate().atTime(v.getHoraLlegada());
-                if (llegada.isBefore(salida)) {
-                    llegada = llegada.plusDays(1);
-                }
-
-                // Avanzar el reloj y la ubicación para el siguiente salto
+                if (llegada.isBefore(salida)) llegada = llegada.plusDays(1);
                 tiempoCursor = llegada;
                 ubicacionActual = v.getDestino();
             }
 
-            // 3. Penalidad masiva si la ruta lo dejó botado en un aeropuerto intermedio
             if (!ubicacionActual.equals(p.getDestino())) {
                 R += 1_000_000.0;
                 continue;
             }
 
-            // 4. Cálculo real y exacto: Horas totales desde Creación hasta Destino Final
-            double horasTotales = java.time.Duration.between(p.getTiempoCreacion(), tiempoCursor).toMinutes() / 60.0;
+            double horasTotales = java.time.Duration.between(
+                    p.getTiempoCreacion(), tiempoCursor).toMinutes() / 60.0;
             R += Math.max(0, horasTotales);
         }
 
@@ -184,46 +184,71 @@ public class AntColonySystem {
     }
 
     // =======================================================================
-    //  Solución inicial greedy (FIFO)
+    //  Solución inicial con A* puro ordenado por urgencia
     // =======================================================================
 
-    private static PlanificationSolutionOutputACS construirSolucionInicial_FIFO(
-            PlanificationProblemInputACS input, Instant reloj) {
+    private static PlanificationSolutionOutputACS construirSolucionInicial(
+            PlanificationProblemInputACS input) {
+
+        List<Pedido> todos = new ArrayList<>(input.getPedidos());
+        // Ordenar por urgencia (SLA más ajustado primero)
+        todos.sort(Comparator.comparing(Pedido::getTiempoLimite));
+
+        // Para entradas muy grandes, procesar solo los más urgentes
+        List<Pedido> aProc = todos;
+        if (todos.size() > MAX_PEDIDOS_FIFO * 10) {
+            int limite = Math.min(MAX_PEDIDOS_FIFO, Math.max(todos.size() / 10, 1));
+            aProc = todos.subList(0, Math.min(limite, todos.size()));
+        }
 
         Ruta rutaTemp = new Ruta();
-        for (Pedido p : input.getPedidos()) {
-            int saltos = 0;
-            while (!rutaTemp.getUbicacionActual(p).equals(p.getDestino()) && saltos < 20) {
-                List<Vuelo> vuelos = VueloSelector.candidatosViables(p, rutaTemp, input);
-                if (vuelos == null || vuelos.isEmpty()) break;
-                Vuelo elegido = null;
-                for (Vuelo v : vuelos) {
-                    elegido = v;
-                    if (v.getDestino().equals(p.getDestino())) break;
-                }
-                if (elegido == null) break;
-                rutaTemp.agregarAsignacion(p, elegido);
-                saltos++;
+        VueloSelector.limpiarCacheDisponibilidad();
+
+        // A* sin feromonas (mapa vacío → sin sesgo, búsqueda puramente óptima)
+        Map<String, Double> sinFeromonas = Collections.emptyMap();
+
+        for (Pedido p : aProc) {
+            List<Vuelo> rutaCompleta = VueloSelector.encontrarRutaCompletaAstar(
+                    p, rutaTemp, sinFeromonas, 1.0, input, MAX_SALTOS_ASTAR);
+            if (rutaCompleta == null) continue;
+
+            for (Vuelo v : rutaCompleta) {
+                LocalDateTime disp = VueloSelector.getDisponibilidadAbsoluta(p, rutaTemp);
+                LocalDateTime salida = disp.toLocalDate().atTime(v.getHoraSalida());
+                if (salida.isBefore(disp)) salida = salida.plusDays(1);
+                rutaTemp.agregarAsignacion(p, v);
+                rutaTemp.registrarUsoAlmacen(v.getOrigen(), disp, salida, p.getCantidadMaletas());
             }
         }
-        Logger.info("ACS - Solución inicial FIFO construida.");
+
+        Logger.info("ACS - Solución inicial A* construida (" + aProc.size() + " pedidos).");
         return rutaTemp.aPlanificationSolution();
     }
 
     // =======================================================================
-    //  Auxiliares
+    //  busquedaLocalCROSS — pre-agrupación O(asig) + límite de pares
     // =======================================================================
 
     private static Ruta busquedaLocalCROSS(Ruta ruta, PlanificationProblemInputACS input) {
+
+        Map<String, List<Asignacion>> porPedido = new HashMap<>();
+        for (Asignacion a : ruta.getAsignaciones()) {
+            porPedido.computeIfAbsent(a.getPedido().getId(), k -> new ArrayList<>()).add(a);
+        }
+
         List<Asignacion> limpias = new ArrayList<>();
         for (Pedido p : input.getPedidos()) {
-            List<Asignacion> rp = new ArrayList<>();
-            for (Asignacion a : ruta.getAsignaciones()) {
-                if (a.getPedido().getId().equals(p.getId())) rp.add(a);
-            }
+            List<Asignacion> rp = new ArrayList<>(
+                    porPedido.getOrDefault(p.getId(), Collections.emptyList()));
+            if (rp.isEmpty()) continue;
+
+            int pares = 0;
+            outer:
             for (int i = 0; i < rp.size(); i++) {
                 for (int j = rp.size() - 1; j > i; j--) {
-                    if (rp.get(i).getVuelo().getOrigen().equals(rp.get(j).getVuelo().getDestino())) {
+                    if (pares++ >= MAX_CROSS_PAIRS) break outer;
+                    if (rp.get(i).getVuelo().getOrigen()
+                            .equals(rp.get(j).getVuelo().getDestino())) {
                         rp.subList(i + 1, j + 1).clear();
                         break;
                     }
@@ -233,16 +258,4 @@ public class AntColonySystem {
         }
         return new Ruta(limpias);
     }
-
-    /*private static double duracionHorasUTC(Vuelo v) {
-        double s = v.getHoraSalida().toSecondOfDay()  / 3600.0;
-        double l = v.getHoraLlegada().toSecondOfDay() / 3600.0;
-        
-        double dur = l - s;
-        if (dur < 0) {
-            dur += 24.0; 
-        }
-        
-        return dur;
-    }*/
 }

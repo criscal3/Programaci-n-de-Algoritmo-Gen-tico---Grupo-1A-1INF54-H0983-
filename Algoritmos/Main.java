@@ -26,10 +26,10 @@ public class Main {
     private static final Simulador.Algoritmo ALGORITMO_ACTIVO = Simulador.Algoritmo.AG;
 
     /** Sa: cada cuántos minutos simulados se planifica */
-    private static final int SALTO_ALGORITMO_SA = 60*2;
+    private static final int SALTO_ALGORITMO_SA = 10;
 
     /** k: Sc = k * Sa (ventana de consumo de datos) */
-    private static final int K = 1;
+    private static final int K = 6;
 
     /** Ta: tiempo máximo del algoritmo por bloque, en SEGUNDOS */
     private static final int TIEMPO_ALGORITMO_TA = 30;
@@ -37,10 +37,10 @@ public class Main {
     // ── Rango temporal de la simulación ──────────────────────
     // Usar LocalDateTime.of(año, mes, día, hora, minuto) o null
     public static final LocalDateTime FECHA_INICIO_SIM =
-            LocalDateTime.of(2028, 1, 25, 0, 0);
+            LocalDateTime.of(2028, 12, 29, 14, 0);
 
     public static final LocalDateTime FECHA_FIN_SIM =
-            LocalDateTime.of(2028, 1, 25, 2, 0);
+            LocalDateTime.of(2028, 12, 30, 14, 0);
 
     // ── Rutas de archivos ─────────────────────────────────────
     private static final String RUTA_AEROPUERTOS =

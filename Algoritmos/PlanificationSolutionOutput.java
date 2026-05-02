@@ -154,7 +154,6 @@ public class PlanificationSolutionOutput {
                 totalCapMaxVuelos += v.getCapacidad();
             }
         }
-        System.out.println("Total capacidad usada en vuelos: " + totalCapUsada + " / " + totalCapMaxVuelos);
         
         this.ocupacionVuelosPonderada = (totalCapMaxVuelos > 0) ? (double) totalCapUsada / totalCapMaxVuelos : 0;
 

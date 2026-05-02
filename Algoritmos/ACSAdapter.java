@@ -1,5 +1,4 @@
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 /**
@@ -15,7 +14,7 @@ public class ACSAdapter {
 
         PlanificationSolutionOutput output = new PlanificationSolutionOutput("ACS");
         if (input.getEnvios().isEmpty()) {
-            output.setMetricaUnificada(0.0);
+            output.setPromedioConsumoSLA(0.0);
             return output;
         }
 
@@ -78,20 +77,24 @@ public class ACSAdapter {
                     .add(asig);
         }
 
-        for (Map.Entry<String, List<Asignacion>> entry : asigPorPedido.entrySet()) {
-            EnvioAlgoritmo envio = mapaEnvioPorPedidoId.get(entry.getKey());
-            if (envio == null) continue;
+        // Iteramos sobre TODOS los envíos originales, no solo los que tienen ruta
+        for (EnvioAlgoritmo envio : input.getEnvios()) {
+            String idUnico = envio.getOrigenOaci() + "-" + envio.getId();
+            List<Asignacion> asignadas = asigPorPedido.get(idUnico);
 
-            List<VueloAlgoritmo> vuelosUsados      = new ArrayList<>();
-            List<LocalDateTime>  fechasVuelo        = new ArrayList<>();
-            List<Integer>        snapCapUsada       = new ArrayList<>(); // snapshot por vuelo
-            List<Integer>        snapOcupAlmacen    = new ArrayList<>(); // snapshot por vuelo
+            // Si el ACS no encontró ruta (A* retornó null), registramos el envío como sin ruta/colapsado
+            if (asignadas == null || asignadas.isEmpty()) {
+                output.agregarRuta(envio, null);
+                continue;
+            }
 
-            LocalDateTime tiempoActual   = envio.getFechaHoraRegistro();
-            LocalDateTime llegadaFinal   = tiempoActual;
-            LocalDateTime llegadaAlOrigen = envio.getFechaHoraRegistro();
+            List<VueloAlgoritmo> vuelosUsados = new ArrayList<>();
+            List<LocalDateTime> fechasVuelo   = new ArrayList<>();
+            LocalDateTime tiempoActual        = envio.getFechaHoraRegistro();
+            LocalDateTime llegadaFinal        = tiempoActual;
+            LocalDateTime llegadaAlOrigen     = envio.getFechaHoraRegistro();
 
-            for (Asignacion a : entry.getValue()) {
+            for (Asignacion a : asignadas) {
                 VueloAlgoritmo va = mapaVueloPorId.get(a.getVuelo().getId());
                 if (va == null) continue;
 
@@ -104,19 +107,10 @@ public class ACSAdapter {
                 String claveVuelo = va.getOrigenOaci() + "-" + va.getDestinoOaci()
                         + "-" + va.getHoraSalida() + "-" + salida.toLocalDate();
 
-                // ── Snapshot de capacidad ANTES de esta asignación ───────────────
-                // capRestante actual = capacidad ya reducida por asignaciones previas
                 int ocupacionActualVuelo = capVuelos.getOrDefault(claveVuelo, 0);
-                snapCapUsada.add(ocupacionActualVuelo);
 
-                // ── Snapshot de almacén de origen en hora de salida ──────────────
-                String claveAlmacen = va.getOrigenOaci()
-                        + "-" + salida.toLocalDate()
-                        + "-" + salida.getHour();
-                // Actualizamos almacén ANTES de tomar snapshot para incluir esta maleta
                 actualizarOcupacionAlmacen(va.getOrigenOaci(), llegadaAlOrigen, salida,
                         envio.getCantidadMaletas(), capAlmacenes);
-                snapOcupAlmacen.add(capAlmacenes.getOrDefault(claveAlmacen, 0));
 
                 // ── Actualizar capacidad restante del vuelo ───────────────────────
                 capVuelos.put(claveVuelo, ocupacionActualVuelo + envio.getCantidadMaletas());
@@ -129,16 +123,15 @@ public class ACSAdapter {
                 llegadaAlOrigen = llegada;
             }
 
-            if (!vuelosUsados.isEmpty()) {
-                output.agregarRuta(envio, new ResultadoRuta(
-                        llegadaFinal, vuelosUsados, fechasVuelo));
-            }
+            // Agregar ruta válida
+            output.agregarRuta(envio, new ResultadoRuta(
+                    llegadaFinal, vuelosUsados, fechasVuelo));
         }
 
         input.getOcupacionGlobalVuelos().putAll(capVuelos);
         input.getOcupacionGlobalAlmacenes().putAll(capAlmacenes);
 
-        output.calcularMetricaUnificada(input.getMapaAeropuertos());
+        output.calcularPromedioConsumoSLA(input.getMapaAeropuertos());
         output.setEstadoCapacidadesVuelos(capVuelos);
         output.setEstadoOcupacionAlmacenes(capAlmacenes);
         return output;
@@ -147,13 +140,13 @@ public class ACSAdapter {
     /** Replica AlgoritmoGenetico.actualizarOcupacionAlmacen exactamente. */
     private static void actualizarOcupacionAlmacen(
             String oaci, LocalDateTime llegada, LocalDateTime salida,
-            int cantidadMaletas, Map<String, Integer> mapaAlmacenes) {
-        LocalDateTime cursor = llegada.truncatedTo(ChronoUnit.HOURS);
-        LocalDateTime fin    = salida.truncatedTo(ChronoUnit.HOURS);
-        while (!cursor.isAfter(fin)) {
-            String clave = oaci + "-" + cursor.toLocalDate() + "-" + cursor.getHour();
-            mapaAlmacenes.merge(clave, cantidadMaletas, Integer::sum);
-            cursor = cursor.plusHours(1);
+            int cantidadMaletas, Map<String, int[]> mapaAlmacenes) {
+        int idxInicio = Main.getIndiceMinuto(llegada);
+        int idxFin    = Main.getIndiceMinuto(salida);
+        int[] almacen = mapaAlmacenes.computeIfAbsent(oaci, 
+                k -> new int[Main.getIndiceMinuto(Main.FECHA_FIN_SIM.plusHours(72)) + 1]);
+        for (int i = idxInicio; i < idxFin; i++) {
+            almacen[i] += cantidadMaletas;
         }
     }
 }

@@ -479,9 +479,9 @@ public class Simulador {
             pw.printf("  Ocupación vuelos global       : %.4f%%%n", ocupacionVuelosGlobal  * 100);
             pw.printf("  Ocupación almacenes global    : %.4f%%%n", almGlobal  * 100);
             if (totalEnvios > 0)
-                pw.printf("  Tasa de éxito            : %.1f%%%n",
+                pw.printf("  Tasa de éxito                 : %.1f%%%n",
                         100.0 * enviosATiempo / totalEnvios);
-            pw.printf("  Tiempo total simulación  : %ds%n",   tiempoTotalMs / 1000);
+            pw.printf("  Tiempo total simulación       : %ds%n",   tiempoTotalMs / 1000);
             pw.println("=".repeat(100));
 
             System.out.println("\n>> Reporte generado en: " + archivoReporte);

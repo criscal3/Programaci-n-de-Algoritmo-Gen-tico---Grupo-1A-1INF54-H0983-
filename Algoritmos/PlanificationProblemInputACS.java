@@ -9,17 +9,15 @@ public class PlanificationProblemInputACS {
     private final Map<String, Aeropuerto> aeropuertos;
     private final Map<String, List<Vuelo>> vuelosPorOrigen;
     private final List<Pedido> pedidos;
-
-    
     private final Map<String, Integer> ocupacionGlobalVuelos;
-    private final Map<String, Integer> ocupacionGlobalAlmacenes;
+    private final Map<String, int[]> ocupacionGlobalAlmacenes;
 
     public PlanificationProblemInputACS(
             Map<String, Aeropuerto> aeropuertos,
             List<Vuelo> vuelos,
             List<Pedido> pedidos,
             Map<String, Integer> ocupacionGlobalVuelos,
-            Map<String, Integer> ocupacionGlobalAlmacenes) {
+            Map<String, int[]> ocupacionGlobalAlmacenes) {
 
         this.aeropuertos           = aeropuertos;
         this.pedidos               = pedidos;
@@ -47,11 +45,8 @@ public class PlanificationProblemInputACS {
         return ocupacionGlobalVuelos.getOrDefault(flightKey, 0);
     }
 
-    public int getOcupacionGlobalAlmacenes(String warehouseKey) {
-        return ocupacionGlobalAlmacenes.getOrDefault(warehouseKey, 0);
+    public int[] getOcupacionGlobalAlmacenes(String warehouseKey) {
+        return ocupacionGlobalAlmacenes.getOrDefault(warehouseKey, new int[Main.getIndiceMinuto(Main.FECHA_FIN_SIM.plusHours(72)) + 1]);
     }
 
-    public void incrementarOcupacionGlobalVuelos(String flightKey, int cantidad) {
-        ocupacionGlobalVuelos.merge(flightKey, cantidad, Integer::sum);
-    }
 }

@@ -149,8 +149,8 @@ public class AlgoritmoGenetico {
         Map<String, Integer> capacidadDinamica = new HashMap<>(this.estadoCapacidadesFinal);
         Map<String, int[]> almacenDinamico = new HashMap<>();
 
-        final double PENALIDAD_MAX_VUELO = 240.0;   // Máximo 3 horas virtuales por vuelo lleno
-        final double PENALIDAD_MAX_ALMACEN = 240.0; // Máximo 4 horas virtuales por almacén lleno
+        final double PENALIDAD_MAX_VUELO = 120.0;   // Máximo 3 horas virtuales por vuelo lleno
+        final double PENALIDAD_MAX_ALMACEN = 180.0; // Máximo 4 horas virtuales por almacén lleno
 
         for (EnvioAlgoritmo envio : individuo.getCromosoma()) {
             ResultadoRuta resultado = simularRutaParaEnvio(envio, capacidadDinamica, almacenDinamico); 
@@ -170,7 +170,7 @@ public class AlgoritmoGenetico {
 
                 if (horasViaje > limiteHorasSLA) {
                     // Penalización por colapso (Llegó tarde)
-                    costoTotal += 999999.0; 
+                    costoTotal += 999999.0+PENALIDAD_MAX_ALMACEN+PENALIDAD_MAX_VUELO; 
                 } else {
                     // Si está a tiempo, el costo es simplemente el tiempo de tránsito
                     costoTotal += minutosViaje;
@@ -188,7 +188,7 @@ public class AlgoritmoGenetico {
                     
                     // --- A) PENALIZACIÓN POR CONGESTIÓN DEL VUELO ---
                     double ratioOcupacion = (double) (ocupacionDinActual + envio.getCantidadMaletas()) / v.getCapacidad();
-                    costoCongestion += ratioOcupacion * PENALIDAD_MAX_VUELO;
+                    costoCongestion += Math.pow(ratioOcupacion, 2) * PENALIDAD_MAX_VUELO;
                 }
 
                 for (int i = 0; i < resultado.vuelosUsados.size(); i++) {
@@ -219,7 +219,7 @@ public class AlgoritmoGenetico {
                         int capMaxAlmacen = mapaAeropuertos.get(oaci).getCapacidadAlmacen();
                         
                         double ratioAlmacen = (double) ocupacionAlmacen / capMaxAlmacen;
-                        costoCongestion += ratioAlmacen * PENALIDAD_MAX_ALMACEN;
+                        costoCongestion += Math.pow(ratioAlmacen, 2) * PENALIDAD_MAX_ALMACEN;
                     }
                 }
 
