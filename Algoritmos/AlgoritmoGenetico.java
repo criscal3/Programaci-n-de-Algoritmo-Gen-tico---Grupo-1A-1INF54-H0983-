@@ -3,15 +3,18 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Random;
+import java.util.Set;
 
 public class AlgoritmoGenetico {
-    private int tamanoPoblacion = 5;
+    private int tamanoPoblacion = 10;
     private double probCruzamiento = 0.8;
     private double probMutacion = 0.1;
     private Random random = new Random(11111L);
@@ -21,7 +24,7 @@ public class AlgoritmoGenetico {
     private Map<String, AeropuertoAlgoritmo> mapaAeropuertos;
     private Map<String, ResultadoRuta> mejoresRutasActuales = new HashMap<>();
     private Map<String, Integer> estadoCapacidadesFinal = new HashMap<>();
-    private Map<String, Integer> ocupacionAlmacenesFisicos = new HashMap<>();
+    private Map<String, int[]> ocupacionAlmacenesFisicos = new HashMap<>();
 
     public Map<String, Integer> getEstadoCapacidadesFinal() {
         return estadoCapacidadesFinal;
@@ -31,12 +34,12 @@ public class AlgoritmoGenetico {
         return mejoresRutasActuales;
     }
 
-    public Map<String, Integer> getOcupacionAlmacenesFisicos() {
+    public Map<String, int[]> getOcupacionAlmacenesFisicos() {
         return ocupacionAlmacenesFisicos;
     }
 
     public AlgoritmoGenetico(List<VueloAlgoritmo> vuelosDisponibles, Map<String, AeropuertoAlgoritmo> mapaAeropuertos, Map<String, Integer> ocupacionVuelosHistorica,
-                             Map<String, Integer> ocupacionAlmacenesHistorica) {
+                             Map<String, int[]> ocupacionAlmacenesHistorica) {
         this.vuelosDisponibles = vuelosDisponibles;
         this.mapaAeropuertos = mapaAeropuertos;
         this.estadoCapacidadesFinal = new HashMap<>(ocupacionVuelosHistorica);
@@ -144,7 +147,10 @@ public class AlgoritmoGenetico {
     private void evaluarFitness(Individuo individuo) {
         double costoTotal = 0.0;
         Map<String, Integer> capacidadDinamica = new HashMap<>(this.estadoCapacidadesFinal);
-        Map<String, Integer> almacenDinamico = new HashMap<>();
+        Map<String, int[]> almacenDinamico = new HashMap<>();
+
+        final double PENALIDAD_MAX_VUELO = 240.0;   // Máximo 3 horas virtuales por vuelo lleno
+        final double PENALIDAD_MAX_ALMACEN = 240.0; // Máximo 4 horas virtuales por almacén lleno
 
         for (EnvioAlgoritmo envio : individuo.getCromosoma()) {
             ResultadoRuta resultado = simularRutaParaEnvio(envio, capacidadDinamica, almacenDinamico); 
@@ -170,13 +176,19 @@ public class AlgoritmoGenetico {
                     costoTotal += minutosViaje;
                 }
 
-                // Descontar la capacidad
+                double costoCongestion = 0.0;
+
+                // Actualizar la capacidad
                 for (int i = 0; i < resultado.vuelosUsados.size(); i++) {
                     VueloAlgoritmo v = resultado.vuelosUsados.get(i);
                     LocalDate diaVuelo = resultado.fechasVuelo.get(i).toLocalDate();
                     String clave = v.getOrigenOaci() + "-" + v.getDestinoOaci() + "-" + v.getHoraSalida() + "-" + diaVuelo;
                     int ocupacionDinActual = capacidadDinamica.getOrDefault(clave, 0);
                     capacidadDinamica.put(clave, ocupacionDinActual + envio.getCantidadMaletas());
+                    
+                    // --- A) PENALIZACIÓN POR CONGESTIÓN DEL VUELO ---
+                    double ratioOcupacion = (double) (ocupacionDinActual + envio.getCantidadMaletas()) / v.getCapacidad();
+                    costoCongestion += ratioOcupacion * PENALIDAD_MAX_VUELO;
                 }
 
                 for (int i = 0; i < resultado.vuelosUsados.size(); i++) {
@@ -196,7 +208,23 @@ public class AlgoritmoGenetico {
                     
                     // Actualizamos el mapa local/dinámico
                     ocuparAlmacenDinamico(oaci, llegadaAlAlmacen, salidaDelAlmacen, envio.getCantidadMaletas(), almacenDinamico);
+                    // --- B) PENALIZACIÓN POR CONGESTIÓN DEL ALMACÉN ---
+                    // Evaluamos qué tan lleno estaba el almacén justo en el minuto que embarcó
+                    // Obtenemos el índice del minuto exacto
+                    int idxMinuto = Main.getIndiceMinuto(salidaDelAlmacen);
+                    
+                    int[] arregloAlmacen = almacenDinamico.get(oaci);
+                    if (arregloAlmacen != null) {
+                        int ocupacionAlmacen = arregloAlmacen[idxMinuto];
+                        int capMaxAlmacen = mapaAeropuertos.get(oaci).getCapacidadAlmacen();
+                        
+                        double ratioAlmacen = (double) ocupacionAlmacen / capMaxAlmacen;
+                        costoCongestion += ratioAlmacen * PENALIDAD_MAX_ALMACEN;
+                    }
                 }
+
+                // Se suma el tiempo virtual por congestión al costo total
+                costoTotal += costoCongestion;
             }
         }
         individuo.setFitness(costoTotal);
@@ -231,7 +259,57 @@ public class AlgoritmoGenetico {
     }
 
     private Individuo cruzarOX(Individuo p1, Individuo p2) {
-        return new Individuo(p1.getCromosoma()); // Placeholder, no implementado aun
+        // Asumiendo que el cromosoma es una lista de enteros que representan el orden de los envíos
+        List<EnvioAlgoritmo> cromo1 = p1.getCromosoma();
+        List<EnvioAlgoritmo> cromo2 = p2.getCromosoma();
+        int size = cromo1.size();
+
+        // 1. Elegir dos puntos de corte aleatorios
+        // Usamos el objeto 'random' que ya tienes instanciado en tu clase
+        int cut1 = this.random.nextInt(size);
+        int cut2 = this.random.nextInt(size);
+
+        // Asegurarnos de que cut1 sea menor o igual que cut2
+        if (cut1 > cut2) {
+            int temp = cut1;
+            cut1 = cut2;
+            cut2 = temp;
+        }
+
+        // Inicializar el cromosoma del descendiente con valores nulos
+        List<EnvioAlgoritmo> descendienteCromo = new ArrayList<>(Collections.nCopies(size, null));
+        Set<EnvioAlgoritmo> genesCopiados = new HashSet<>();
+
+        // 2. Copiar el segmento del Padre 1 al descendiente
+        for (int i = cut1; i <= cut2; i++) {
+            EnvioAlgoritmo gen = cromo1.get(i);
+            descendienteCromo.set(i, gen);
+            genesCopiados.add(gen);
+        }
+
+        // 3. Llenar los espacios restantes usando el Padre 2
+        // Empezamos a buscar en el Padre 2 justo después del segundo punto de corte
+        int indexPadre2 = (cut2 + 1) % size;
+        
+        // Empezamos a llenar en el descendiente justo después del segundo punto de corte
+        int indexDescendiente = (cut2 + 1) % size;
+
+        // Iteramos tantas veces como el tamaño del cromosoma para revisar todo el Padre 2
+        for (int i = 0; i < size; i++) {
+            EnvioAlgoritmo genP2 = cromo2.get(indexPadre2);
+            
+            // Si el gen del Padre 2 NO está ya en el descendiente, lo insertamos
+            if (!genesCopiados.contains(genP2)) {
+                descendienteCromo.set(indexDescendiente, genP2);
+                // Avanzamos el índice del descendiente de forma circular
+                indexDescendiente = (indexDescendiente + 1) % size;
+            }
+            // Avanzamos el índice del Padre 2 de forma circular
+            indexPadre2 = (indexPadre2 + 1) % size;
+        }
+
+        // Retornamos el nuevo individuo
+        return new Individuo(descendienteCromo);
     }
 
     private void mutarPoblacion(List<Individuo> poblacion) {
@@ -249,7 +327,7 @@ public class AlgoritmoGenetico {
         }
     }
 
-    private ResultadoRuta simularRutaParaEnvio(EnvioAlgoritmo envio, Map<String, Integer> capacidadDinamica, Map<String, Integer> almacenDinamico) {
+    private ResultadoRuta simularRutaParaEnvio(EnvioAlgoritmo envio, Map<String, Integer> capacidadDinamica, Map<String, int[]> almacenDinamico) {
         PriorityQueue<NodoRuta> cola = new PriorityQueue<>();
         
         // Estado inicial
@@ -300,7 +378,6 @@ public class AlgoritmoGenetico {
                     AeropuertoAlgoritmo aeroDestino = mapaAeropuertos.get(vuelo.getDestinoOaci());
                     LocalDateTime salidaProyectada = llegada.plusHours(2); 
 
-                    // Agregamos almacenDinamico al método
                     boolean escalaTieneEspacio = hayEspacioEnAlmacen(
                         vuelo.getDestinoOaci(), 
                         llegada, 
@@ -399,61 +476,49 @@ public class AlgoritmoGenetico {
      * durante cada hora que permanezcan allí.
      */
     private void actualizarOcupacionAlmacen(String oaci, LocalDateTime llegada, LocalDateTime salida, int cantidadMaletas) {
-        
-        // Truncamos la hora de llegada para empezar a contar desde el inicio de esa hora
-        // Ejemplo: Si llega a las 14:25, bloquea el espacio desde las 14:00
-        LocalDateTime tiempoEvaluacion = llegada.truncatedTo(ChronoUnit.HOURS);
-        
-        // Truncamos la hora de salida para saber hasta qué bloque iterar
-        LocalDateTime tiempoFin = salida.truncatedTo(ChronoUnit.HOURS);
+        // 1. Obtener los índices exactos (minutos desde la FECHA_BASE)
+        int idxInicio = Main.getIndiceMinuto(llegada);
+        int idxFin    = Main.getIndiceMinuto(salida);
 
-        // Iteramos sumando de 1 hora en 1 hora, desde la llegada hasta la salida
-        while (!tiempoEvaluacion.isAfter(tiempoFin)) {
-            
-            // Construimos la misma clave que usamos en la validación: "OACI-YYYY-MM-DD-HH"
-            String claveAlmacen = oaci + "-" + tiempoEvaluacion.toLocalDate() + "-" + tiempoEvaluacion.getHour();
-            
-            // Obtenemos cuántas maletas hay actualmente en esa hora (o 0 si no hay registro)
-            int ocupacionActual = this.ocupacionAlmacenesFisicos.getOrDefault(claveAlmacen, 0);
-            
-            // Sumamos las nuevas maletas y actualizamos el mapa
-            this.ocupacionAlmacenesFisicos.put(claveAlmacen, ocupacionActual + cantidadMaletas);
-            
-            // Avanzamos al siguiente bloque de 1 hora
-            tiempoEvaluacion = tiempoEvaluacion.plusHours(1);
+        // 2. Obtener el arreglo del mapa global (ahora es Map<String, int[]>)
+        // Si el arreglo no existe para este aeropuerto, lo inicializamos
+        int[] almacen = this.ocupacionAlmacenesFisicos.computeIfAbsent(oaci, 
+                k -> new int[Main.getIndiceMinuto(Main.FECHA_FIN_SIM.plusHours(72)) + 1]); // +1 para incluir el último minuto
+
+        // 3. Iterar sobre el arreglo primitivo y sumar la cantidad
+        for (int i = idxInicio; i < idxFin; i++) {
+            almacen[i] += cantidadMaletas;
         }
     }
 
-    private void ocuparAlmacenDinamico(String oaci, LocalDateTime llegada, LocalDateTime salida, int cantidadMaletas, Map<String, Integer> almacenDinamico) {
-        LocalDateTime tiempoEvaluacion = llegada.truncatedTo(ChronoUnit.HOURS);
-        LocalDateTime tiempoFin = salida.truncatedTo(ChronoUnit.HOURS);
-
-        while (!tiempoEvaluacion.isAfter(tiempoFin)) {
-            String claveAlmacen = oaci + "-" + tiempoEvaluacion.toLocalDate() + "-" + tiempoEvaluacion.getHour();
-            int ocupacionActual = almacenDinamico.getOrDefault(claveAlmacen, 0);
-            almacenDinamico.put(claveAlmacen, ocupacionActual + cantidadMaletas);
-            tiempoEvaluacion = tiempoEvaluacion.plusHours(1);
+    private void ocuparAlmacenDinamico(String oaci, LocalDateTime llegada, LocalDateTime salida, int cantidad, Map<String, int[]> almacenDinamico) {
+        
+        int idxInicio = Main.getIndiceMinuto(llegada);
+        int idxFin = Main.getIndiceMinuto(salida);
+        
+        int[] local = almacenDinamico.computeIfAbsent(oaci, k -> new int[Main.getIndiceMinuto(Main.FECHA_FIN_SIM.plusHours(72)) + 1]);
+        
+        for (int i = idxInicio; i < idxFin; i++) {
+            local[i] += cantidad;
         }
     }
 
-    private boolean hayEspacioEnAlmacen(String oaci, LocalDateTime desde, LocalDateTime hasta, int cantidad, int capacidadMax, Map<String, Integer> almacenDinamico) {
+    private boolean hayEspacioEnAlmacen(String oaci, LocalDateTime llegada, LocalDateTime salida, int cantidad, int capacidadMax, Map<String, int[]> almacenDinamico) {
         
-        LocalDateTime tiempoEvaluacion = desde.truncatedTo(ChronoUnit.HOURS);
-        LocalDateTime tiempoFin = hasta.truncatedTo(ChronoUnit.HOURS);
-
-        while (!tiempoEvaluacion.isAfter(tiempoFin)) {
-            String clave = oaci + "-" + tiempoEvaluacion.toLocalDate() + "-" + tiempoEvaluacion.getHour();
+        int idxInicio = Main.getIndiceMinuto(llegada);
+        int idxFin = Main.getIndiceMinuto(salida);
+        
+        int[] global = ocupacionAlmacenesFisicos.get(oaci);
+        int[] local = almacenDinamico.get(oaci);
+        
+        for (int i = idxInicio; i < idxFin; i++) {
+            int usoGlobal = (global != null) ? global[i] : 0;
+            int usoLocal = (local != null) ? local[i] : 0;
             
-            int ocupacionGlobal = ocupacionAlmacenesFisicos.getOrDefault(clave, 0);
-            int ocupacionLocal = almacenDinamico.getOrDefault(clave, 0);
-            
-            if (ocupacionGlobal + ocupacionLocal + cantidad > capacidadMax) {
-                return false; // Se detectó un sobrecupo real
+            if (usoGlobal + usoLocal + cantidad > capacidadMax) {
+                return false; 
             }
-            
-            tiempoEvaluacion = tiempoEvaluacion.plusHours(1);
         }
-        
         return true;
     }
 

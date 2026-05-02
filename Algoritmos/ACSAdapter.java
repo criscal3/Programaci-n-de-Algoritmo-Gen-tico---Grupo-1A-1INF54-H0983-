@@ -20,7 +20,7 @@ public class ACSAdapter {
         }
 
         Map<String, Integer> capVuelos = new HashMap<>(input.getOcupacionGlobalVuelos());
-        Map<String, Integer> capAlmacenes = new HashMap<>(input.getOcupacionGlobalAlmacenes());
+        Map<String, int[]> capAlmacenes = new HashMap<>(input.getOcupacionGlobalAlmacenes());
 
         // --- 1. Aeropuerto ACS interno ---
         Map<String, Aeropuerto> mapaAeropuertosACS = new HashMap<>();

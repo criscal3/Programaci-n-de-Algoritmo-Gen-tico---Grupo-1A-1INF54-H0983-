@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -19,10 +20,12 @@ public class PlanificationSolutionOutput {
     private final Map<String, Integer> estadoCapacidadesVuelos;
 
     /** Estado de ocupación de almacenes al final de este bloque */
-    private final Map<String, Integer> estadoOcupacionAlmacenes;
+    private final Map<String, int[]> estadoOcupacionAlmacenes;
 
-    /** Fitness / responsiveness del mejor individuo o colonia */
-    private double metricaUnificada;
+    private double promedioConsumoSLA;
+    private double ocupacionVuelosPonderada;
+    private double ocupacionAlmacenesPonderada;
+    private int capacidadTotalAlmacenes;
 
     /** Nombre del algoritmo que generó esta solución */
     private String algoritmo;
@@ -33,7 +36,7 @@ public class PlanificationSolutionOutput {
         this.enviosPlanificados      = new ArrayList<>();
         this.estadoCapacidadesVuelos = new HashMap<>();
         this.estadoOcupacionAlmacenes = new HashMap<>();
-        this.metricaUnificada          = Double.MAX_VALUE;
+        this.promedioConsumoSLA = Double.MAX_VALUE;
     }
 
     // ---- Rutas ----
@@ -64,7 +67,7 @@ public class PlanificationSolutionOutput {
         this.estadoCapacidadesVuelos.putAll(estado);
     }
 
-    public void setEstadoOcupacionAlmacenes(Map<String, Integer> estado) {
+    public void setEstadoOcupacionAlmacenes(Map<String, int[]> estado) {
         this.estadoOcupacionAlmacenes.putAll(estado);
     }
 
@@ -72,7 +75,7 @@ public class PlanificationSolutionOutput {
         return estadoCapacidadesVuelos;
     }
 
-    public Map<String, Integer> getEstadoOcupacionAlmacenes() {
+    public Map<String, int[]> getEstadoOcupacionAlmacenes() {
         return estadoOcupacionAlmacenes;
     }
 
@@ -96,7 +99,7 @@ public class PlanificationSolutionOutput {
      *
      * @param mapaAeropuertos Necesario para determinar el continente de origen y destino.
      */
-    public void calcularMetricaUnificada(java.util.Map<String, AeropuertoAlgoritmo> mapaAeropuertos) {
+    public void calcularPromedioConsumoSLA(java.util.Map<String, AeropuertoAlgoritmo> mapaAeropuertos) {
         double sumaRatio = 0.0;
         int    conteo    = 0;
 
@@ -125,11 +128,74 @@ public class PlanificationSolutionOutput {
             conteo++;
         }
 
-        this.metricaUnificada = conteo > 0 ? sumaRatio * 100 / conteo : Double.MAX_VALUE;
+        this.promedioConsumoSLA = conteo > 0 ? sumaRatio * 100 / conteo : Double.MAX_VALUE;
     }
 
-    public double getMetricaUnificada() { return metricaUnificada; }
-    public void setMetricaUnificada(double m) { this.metricaUnificada = m; }
+    /**
+     * Calcula las métricas de ocupación de forma ponderada.
+     * @param indiceVuelos Un mapa de clave -> VueloAlgoritmo para obtener capacidades máximas.
+     * @param mapaAeropuertos Para obtener capacidades de almacén.
+     * @param horaBase Hora de inicio del bloque actual.
+     * @param saltoSc Ventana de tiempo (minutos).
+     */
+    public void calcularEstadisticasOcupacion(Map<String, VueloAlgoritmo> indiceVuelos,
+                                             Map<String, AeropuertoAlgoritmo> mapaAeropuertos,
+                                             LocalDateTime horaBase,
+                                             int saltoSc) {
+        
+        // 1. OCUPACIÓN DE VUELOS (Ponderada por capacidad máxima)
+        long totalCapUsada = 0;
+        long totalCapMaxVuelos = 0;
+
+        for (Map.Entry<String, Integer> entry : estadoCapacidadesVuelos.entrySet()) {
+            VueloAlgoritmo v = indiceVuelos.get(entry.getKey());
+            if (v != null) {
+                totalCapUsada += entry.getValue();
+                totalCapMaxVuelos += v.getCapacidad();
+            }
+        }
+        System.out.println("Total capacidad usada en vuelos: " + totalCapUsada + " / " + totalCapMaxVuelos);
+        
+        this.ocupacionVuelosPonderada = (totalCapMaxVuelos > 0) ? (double) totalCapUsada / totalCapMaxVuelos : 0;
+
+        // 2. OCUPACIÓN DE ALMACENES (Promedio temporal ponderado por capacidad)
+        int idxInicio = Main.getIndiceMinuto(horaBase);
+        int idxFin = idxInicio + saltoSc;
+        
+        double sumaUsosPromedio = 0;
+        long sumaCapacidadesAlmacen = 0;
+
+        for (Map.Entry<String, int[]> entry : estadoOcupacionAlmacenes.entrySet()) {
+            AeropuertoAlgoritmo aero = mapaAeropuertos.get(entry.getKey());
+            if (aero == null || aero.getCapacidadAlmacen() == 0) continue;
+
+            int[] usoPorMinuto = entry.getValue();
+            long sumaUsoEnVentana = 0;
+            int minutosContados = 0;
+
+            for (int i = idxInicio; i < idxFin && i < usoPorMinuto.length; i++) {
+                sumaUsoEnVentana += usoPorMinuto[i];
+                minutosContados++;
+            }
+
+            if (minutosContados > 0) {
+                double usoPromedioTemporal = (double) sumaUsoEnVentana / minutosContados;
+                sumaUsosPromedio += usoPromedioTemporal;
+                sumaCapacidadesAlmacen += aero.getCapacidadAlmacen();
+            }
+        }
+        this.ocupacionAlmacenesPonderada = (sumaCapacidadesAlmacen > 0) ? sumaUsosPromedio / sumaCapacidadesAlmacen : 0;
+        this.capacidadTotalAlmacenes += sumaCapacidadesAlmacen;
+    }
+
+    // Getters para las nuevas métricas
+    public double getOcupacionVuelosPonderada() { return ocupacionVuelosPonderada; }
+    public double getOcupacionAlmacenesPonderada() { return ocupacionAlmacenesPonderada; }
+
+    public double getPromedioConsumoSLA() { return promedioConsumoSLA; }
+    public void setPromedioConsumoSLA(double m) { this.promedioConsumoSLA = m; }
+
+    public int getCapacidadTotalAlmacenes() { return capacidadTotalAlmacenes; }
 
     public String getAlgoritmo() { return algoritmo; }
 

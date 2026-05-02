@@ -13,7 +13,7 @@ public class AGAdapter {
 
         PlanificationSolutionOutput output = new PlanificationSolutionOutput("AG");
         if (input.getEnvios().isEmpty()) {
-            output.setMetricaUnificada(0.0);
+            output.setPromedioConsumoSLA(0.0);
             return output;
         }
 
@@ -30,7 +30,7 @@ public class AGAdapter {
 
         Map<String, ResultadoRuta> mapaRutas   = ag.getMejoresRutasActuales();
         Map<String, Integer> capVuelos          = ag.getEstadoCapacidadesFinal(); // Ahora es "Ocupación de Vuelos"
-        Map<String, Integer> ocupAlmacenes      = ag.getOcupacionAlmacenesFisicos();
+        Map<String, int[]> ocupAlmacenes      = ag.getOcupacionAlmacenesFisicos();
 
         for (EnvioAlgoritmo envio : enviosPlanificados) {
             String clave = envio.getOrigenOaci() + "-" + envio.getId();
@@ -42,7 +42,7 @@ public class AGAdapter {
         input.getOcupacionGlobalAlmacenes().putAll(ocupAlmacenes);
         input.getOcupacionGlobalVuelos().putAll(capVuelos);
 
-        output.calcularMetricaUnificada(input.getMapaAeropuertos());
+        output.calcularPromedioConsumoSLA(input.getMapaAeropuertos());
         output.setEstadoCapacidadesVuelos(capVuelos);
         output.setEstadoOcupacionAlmacenes(ocupAlmacenes);
         return output;

@@ -23,7 +23,7 @@ public class LectorEnvios {
      * @param rutaCarpeta Ruta de la carpeta _envios_preliminar_
      * @param listaAeropuertos Lista de aeropuertos previamente leída para obtener los GMT
      */
-    public void cargarTodosLosEnvios(String rutaCarpeta, List<AeropuertoAlgoritmo> listaAeropuertos) {
+    /*public void cargarTodosLosEnvios(String rutaCarpeta, List<AeropuertoAlgoritmo> listaAeropuertos) {
         todosLosEnvios.clear();
         indiceLecturaActual = 0;
         relojSimulacion = null;
@@ -34,6 +34,10 @@ public class LectorEnvios {
         for (AeropuertoAlgoritmo aero : listaAeropuertos) {
             mapaGmt.put(aero.getOaci(), aero.getGmt());
         }
+
+        
+        
+        //System.out.println("[LectorEnvios] Escaneando archivos y filtrando por fechas...");
 
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(rutaCarpeta), "*.txt")) {
             for (Path path : stream) {
@@ -79,6 +83,85 @@ public class LectorEnvios {
 
         } catch (IOException e) {
             System.err.println("Error cargando carpeta: " + e.getMessage());
+        }
+    }*/
+
+    public void cargarTodosLosEnvios(String rutaCarpeta, List<AeropuertoAlgoritmo> listaAeropuertos, 
+                                    LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+    
+        todosLosEnvios.clear();
+        this.indiceLecturaActual = 0;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm");
+
+        // 1. Crear mapa rápido de OACI -> GMT para la conversión
+        Map<String, Integer> mapaGmt = new HashMap<>();
+        for (AeropuertoAlgoritmo a : listaAeropuertos) {
+            mapaGmt.put(a.getOaci(), a.getGmt());
+        }
+
+        System.out.println("[LectorEnvios] Escaneando archivos y filtrando por fechas...");
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(rutaCarpeta))) {
+            for (Path path : stream) {
+                // Usamos un Stream de líneas para no saturar la RAM si el archivo es gigante
+                Files.lines(path, StandardCharsets.UTF_8).forEach(linea -> {
+                    if (linea.trim().isEmpty()) return;
+
+                    String[] partes = linea.split("-");
+                    // Estructura: ID - YYYYMMDD - HH - mm - DESTINO - CANTIDAD - CLIENTE
+                    
+                    // Reconstruir el string de la fecha para el parseo
+                    String fechaStr = partes[1] + " " + partes[2] + ":" + partes[3];
+                    LocalDateTime fechaRegistroOriginal = LocalDateTime.parse(fechaStr, dtf);
+
+                    // Extraer OACI de Origen del nombre del archivo (Ej. _envios_EKCH_.txt -> EKCH)
+                    String nombreArchivo = path.getFileName().toString();
+                    String oaciOrigen = nombreArchivo.split("_")[2]; 
+                    
+                    // Convertir la fecha a GMT-0
+                    int gmt = mapaGmt.getOrDefault(oaciOrigen, 0);
+                    LocalDateTime fechaGmt0 = fechaRegistroOriginal.minusHours(gmt);
+
+                    // =================================================================
+                    // FILTRO TEMPORAL CRÍTICO (Ignora los que están fuera de fecha)
+                    // =================================================================
+                    if (fechaInicio != null && fechaGmt0.isBefore(fechaInicio)) {
+                        return; // return en un forEach de Stream equivale a 'continue'
+                    }
+                    if (fechaFin != null && fechaGmt0.isAfter(fechaFin)) {
+                        return; 
+                    }
+
+                    // Si pasó el filtro, creamos el objeto y lo guardamos
+                    String idEnvio = partes[0];
+                    String oaciDestino = partes[4];
+                    int cantidadMaletas = Integer.parseInt(partes[5]);
+
+                    EnvioAlgoritmo envio = new EnvioAlgoritmo();
+                    envio.setId(idEnvio);
+                    envio.setOrigenOaci(oaciOrigen);
+                    envio.setDestinoOaci(oaciDestino);
+                    envio.setCantidadMaletas(cantidadMaletas);
+                    envio.setFechaHoraRegistro(fechaGmt0);
+                    envio.setClienteId(partes[6]);
+                    todosLosEnvios.add(envio);
+                });
+            }
+        } catch (IOException e) {
+            System.err.println("[LectorEnvios] Error al leer la carpeta de envíos: " + e.getMessage());
+        }
+
+        // =================================================================
+        // ORDENAMIENTO CRONOLÓGICO (Arregla el desorden de los archivos)
+        // =================================================================
+        System.out.println("[LectorEnvios] Ordenando cronológicamente " + todosLosEnvios.size() + " envíos válidos...");
+        todosLosEnvios.sort(Comparator.comparing(EnvioAlgoritmo::getFechaHoraRegistro));
+
+        // Configurar el reloj de la simulación
+        if (fechaInicio != null) {
+            this.relojSimulacion = fechaInicio;
+        } else if (!todosLosEnvios.isEmpty()) {
+            this.relojSimulacion = todosLosEnvios.get(0).getFechaHoraRegistro();
         }
     }
 

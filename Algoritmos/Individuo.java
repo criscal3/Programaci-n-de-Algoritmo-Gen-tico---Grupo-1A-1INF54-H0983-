@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Individuo {
+    private static final Random rand = new Random(11111L);
     // El cromosoma es el orden en que se procesarán los envíos del bloque actual
     private List<EnvioAlgoritmo> cromosoma;
     private double fitness;
@@ -10,7 +12,7 @@ public class Individuo {
     public Individuo(List<EnvioAlgoritmo> envios) {
         this.cromosoma = new ArrayList<>(envios);
         // Mezclamos para crear un individuo inicial aleatorio
-        Collections.shuffle(this.cromosoma);
+        Collections.shuffle(this.cromosoma, rand);
         this.fitness = 0.0;
     }
 

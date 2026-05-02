@@ -26,21 +26,21 @@ public class Main {
     private static final Simulador.Algoritmo ALGORITMO_ACTIVO = Simulador.Algoritmo.AG;
 
     /** Sa: cada cuántos minutos simulados se planifica */
-    private static final int SALTO_ALGORITMO_SA = 60*3;
+    private static final int SALTO_ALGORITMO_SA = 60*2;
 
     /** k: Sc = k * Sa (ventana de consumo de datos) */
     private static final int K = 1;
 
     /** Ta: tiempo máximo del algoritmo por bloque, en SEGUNDOS */
-    private static final int TIEMPO_ALGORITMO_TA = 60;
+    private static final int TIEMPO_ALGORITMO_TA = 30;
 
     // ── Rango temporal de la simulación ──────────────────────
     // Usar LocalDateTime.of(año, mes, día, hora, minuto) o null
-    private static final LocalDateTime FECHA_INICIO_SIM =
-            LocalDateTime.of(2028, 12, 29, 23, 56);
+    public static final LocalDateTime FECHA_INICIO_SIM =
+            LocalDateTime.of(2028, 1, 25, 0, 0);
 
-    private static final LocalDateTime FECHA_FIN_SIM =
-            LocalDateTime.of(2028, 12, 30, 23, 56);
+    public static final LocalDateTime FECHA_FIN_SIM =
+            LocalDateTime.of(2028, 1, 25, 2, 0);
 
     // ── Rutas de archivos ─────────────────────────────────────
     private static final String RUTA_AEROPUERTOS =
@@ -49,6 +49,12 @@ public class Main {
     private static final String RUTA_VUELOS = "planes_vuelo.txt";
 
     private static final String CARPETA_ENVIOS = "_envios_preliminar_";
+
+    public static int getIndiceMinuto(LocalDateTime fecha) {
+        int indice = (int) java.time.temporal.ChronoUnit.MINUTES.between(FECHA_INICIO_SIM, fecha);
+        if (indice < 0) return 0;
+        return indice;
+    }
 
     // =========================================================
     //  MAIN

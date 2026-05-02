@@ -14,8 +14,8 @@ public class PlanificationProblemInput {
 
     // Ocupación global acumulada entre bloques (clave: origen-destino-horaSalida-fecha)
     private Map<String, Integer> ocupacionGlobalVuelos;
-    // Ocupación acumulada de almacenes (clave: OACI-fecha-hora)
-    private Map<String, Integer> ocupacionGlobalAlmacenes;
+    // Ocupación acumulada de almacenes (clave: oaciAlmacen, valor: array de ocupación por minuto)
+    private Map<String, int[]> ocupacionGlobalAlmacenes;
 
     public PlanificationProblemInput() {
         this.aeropuertos            = new HashMap<>();
@@ -75,25 +75,13 @@ public class PlanificationProblemInput {
         return ocupacionGlobalVuelos.getOrDefault(claveVuelo, 0);
     }
 
-    public void incrementarOcupacionGlobalVuelo(String claveVuelo, int cantidad) {
-        ocupacionGlobalVuelos.merge(claveVuelo, cantidad, Integer::sum);
-    }
-
     public Map<String, Integer> getOcupacionGlobalVuelos() {
         return ocupacionGlobalVuelos;
     }
 
     // ---- Ocupación global de almacenes ----
 
-    public int getOcupacionGlobalAlmacen(String claveAlmacen) {
-        return ocupacionGlobalAlmacenes.getOrDefault(claveAlmacen, 0);
-    }
-
-    public void incrementarOcupacionGlobalAlmacen(String claveAlmacen, int cantidad) {
-        ocupacionGlobalAlmacenes.merge(claveAlmacen, cantidad, Integer::sum);
-    }
-
-    public Map<String, Integer> getOcupacionGlobalAlmacenes() {
+    public Map<String, int[]> getOcupacionGlobalAlmacenes() {
         return ocupacionGlobalAlmacenes;
     }
 

@@ -41,6 +41,7 @@ public class Simulador {
 
     // ===== FORMATO DE FECHAS =====
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private Map<String, VueloAlgoritmo> indiceVuelosParaMetricas = new HashMap<>();
 
     // =======================================================================
     //  Constructor
@@ -108,7 +109,7 @@ public class Simulador {
         // --- 3. Cargar envíos ---
         imprimirSeccion("3. CARGANDO ENVÍOS");
         LectorEnvios lectorEnvios = new LectorEnvios();
-        lectorEnvios.cargarTodosLosEnvios(carpetaEnvios, aeropuertos);
+        lectorEnvios.cargarTodosLosEnvios(carpetaEnvios, aeropuertos, fechaInicioSim, fechaFinSim);
         lectorEnvios.configurarRangoTemporal(fechaInicioSim);
 
         // --- 4. Construir PlanificationProblemInput maestro ---
@@ -129,7 +130,9 @@ public class Simulador {
                 ? fechaInicioSim
                 : lectorEnvios.getRelojSimulacion();
 
-        // Acumular todas las soluciones para el reporte final
+        prepararIndiceVuelos(inputMaestro.getTodosLosVuelos(), horaBase, fechaFinSim.plusDays(3));
+        
+        
         List<PlanificationSolutionOutput> todasLasSoluciones = new ArrayList<>();
 
         long tiempoSimulacionInicio = System.currentTimeMillis();
@@ -176,10 +179,19 @@ public class Simulador {
                 // ---- Ejecutar el algoritmo seleccionado ----
                 long t0 = System.currentTimeMillis();
                 PlanificationSolutionOutput solucion = ejecutarAlgoritmo(subInput);
+                solucion.calcularEstadisticasOcupacion(
+                    indiceVuelosParaMetricas, 
+                    mapaAeropuertos, 
+                    lectorEnvios.getRelojSimulacion(), 
+                    saltoDeConsumoSc
+                );
+
                 long duracion = System.currentTimeMillis() - t0;
 
                 Logger.info("Algoritmo ejecutado en " + duracion + "ms | Porcentaje de consumo de SLA: "
-                        + String.format("%.4f", solucion.getMetricaUnificada()));
+                        + String.format("%.4f", solucion.getPromedioConsumoSLA()) + "%");
+                Logger.info("Ocupación Vuelos: " + String.format("%.4f", solucion.getOcupacionVuelosPonderada() * 100) + "% | Almacenes: "
+                        + String.format("%.4f", solucion.getOcupacionAlmacenesPonderada() * 100) + "%");
 
                 todasLasSoluciones.add(solucion);
 
@@ -191,8 +203,10 @@ public class Simulador {
                     Logger.info("¡COLAPSO! Sistema fuera de SLA en iteración " + iteracion);
                 }
 
-                System.out.printf(" -> Tiempo ejecución algoritmo: %dms | Porcentaje de consumo de SLA: %.4f%n",
-                        duracion, solucion.getMetricaUnificada());
+                System.out.printf(" -> Tiempo ejecución algoritmo: %dms | Porcentaje de consumo de SLA: %.4f%%%n",
+                        duracion, solucion.getPromedioConsumoSLA());
+                System.out.printf(" -> Ocupación vuelos: %.4f%% | Ocupación almacenes: %.4f%%%n",
+                        solucion.getOcupacionVuelosPonderada() * 100, solucion.getOcupacionAlmacenesPonderada() * 100);
 
             } else {
                 System.out.println(" -> No hay nuevos envíos en este lapso.");
@@ -297,7 +311,7 @@ public class Simulador {
                 sb.append("Ruta (").append(ruta.vuelosUsados.size()).append(" vuelos):\n");
 
                 Map<String, Integer> capVuelosSol   = solucion.getEstadoCapacidadesVuelos();
-                Map<String, Integer> ocupAlmacenSol = solucion.getEstadoOcupacionAlmacenes();
+                Map<String, int[]> ocupAlmacenSol = solucion.getEstadoOcupacionAlmacenes();
 
                 for (int i = 0; i < ruta.vuelosUsados.size(); i++) {
                     VueloAlgoritmo v      = ruta.vuelosUsados.get(i);
@@ -307,16 +321,13 @@ public class Simulador {
                             + "-" + v.getHoraSalida() + "-" + salida.toLocalDate();
                     int capUsada = capVuelosSol.getOrDefault(claveV, 0);
 
-                    String claveA  = v.getOrigenOaci()
-                            + "-" + salida.toLocalDate()
-                            + "-" + salida.getHour();
-                    int usoAlmacen = ocupAlmacenSol.getOrDefault(claveA, 0);
+                    int usoAlmacen = getOcupacionExactaAlmacen(v.getOrigenOaci(), salida, ocupAlmacenSol);
 
                     AeropuertoAlgoritmo aeroOrigen = mapaAeropuertos.get(v.getOrigenOaci());
                     int capAlmacen = aeroOrigen != null ? aeroOrigen.getCapacidadAlmacen() : 0;
 
                     sb.append(String.format(
-                            "  (%d) %s -> %s | Salida: %s | Llegada: %s | Vuelo: %d/%d | Almacén %s: %d/%d%n",
+                            "  (%d) %s -> %s | Salida: %s | Llegada: %s | Vuelo: %3d/%3d | Almacén %s: %3d/%3d%n",
                             i + 1,
                             v.getOrigenOaci(), v.getDestinoOaci(),
                             salida.toLocalTime(), v.getHoraLlegada(),
@@ -343,17 +354,17 @@ public class Simulador {
 
         try (PrintWriter pw = new PrintWriter(new FileWriter(archivoReporte, false))) {
 
-            pw.println("=".repeat(90));
+            pw.println("=".repeat(100));
             pw.println("  REPORTE FINAL DE SIMULACIÓN - TASF.B2B");
             pw.println("  Algoritmo: " + algoritmo);
-            pw.println("=".repeat(90));
+            pw.println("=".repeat(100));
             pw.printf("  Parámetros: Sa=%dmin | k=%d | Sc=%dmin | Ta=%ds%n",
                     saltoDeAlgoritmoSa, k, saltoDeConsumoSc, tiempoDeAlgoritmoTa);
             if (fechaInicioSim != null)
                 pw.println("  Inicio simulación : " + fechaInicioSim.format(FMT));
             if (fechaFinSim != null)
                 pw.println("  Fin simulación    : " + fechaFinSim.format(FMT));
-            pw.println("=".repeat(90));
+            pw.println("=".repeat(100));
             pw.println();
 
             int totalBloques       = soluciones.size();
@@ -361,13 +372,22 @@ public class Simulador {
             int enviosSinRuta      = 0;
             int enviosATiempo      = 0;
             int enviosColapso      = 0;
+            double sumaSLA        = 0;
+            double sumaOcupAlmacenes = 0;
+            double sumaCapacidadesAlmacen = 0;
+            double ocupacionVuelosGlobal = 0;
 
             for (int b = 0; b < soluciones.size(); b++) {
+                int enviosATiempoLocal = 0;
                 PlanificationSolutionOutput sol = soluciones.get(b);
-                pw.println("-".repeat(90));
-                pw.printf("BLOQUE %d | Envíos: %d | Maletas: %d | Porcentaje de consumo de SLA: %.4f%n",
-                        b + 1, sol.totalEnvios(), sol.totalMaletas(), sol.getMetricaUnificada());
-                pw.println("-".repeat(90));
+                sumaOcupAlmacenes += sol.getOcupacionAlmacenesPonderada()*sol.getCapacidadTotalAlmacenes();
+                sumaCapacidadesAlmacen += sol.getCapacidadTotalAlmacenes();
+                if(b == soluciones.size() - 1)
+                    ocupacionVuelosGlobal = sol.getOcupacionVuelosPonderada();
+                pw.println("-".repeat(100));
+                pw.printf("BLOQUE %d | Envíos: %d | Maletas: %d | Porcentaje de consumo de SLA: %.4f%% %nOcupación vuelos: %.4f%% | Ocupación almacenes: %.4f%%%n",
+                        b + 1, sol.totalEnvios(), sol.totalMaletas(), sol.getPromedioConsumoSLA(), sol.getOcupacionVuelosPonderada() * 100, sol.getOcupacionAlmacenesPonderada() * 100);
+                pw.println("-".repeat(100));
 
                 for (EnvioAlgoritmo envio : sol.getEnviosPlanificados()) {
                     ResultadoRuta ruta = sol.getRuta(envio);
@@ -398,7 +418,12 @@ public class Simulador {
                         boolean incompleto = !destAlcanzado.equals(envio.getDestinoOaci());
                         boolean fuera = h > lim || incompleto;
                         enviosConRuta++;
-                        if (fuera) enviosColapso++; else enviosATiempo++;
+                        if (fuera) 
+                            enviosColapso++; 
+                        else {
+                            enviosATiempo++;
+                            enviosATiempoLocal++;
+                        }
 
                         String estadoStr = incompleto
                                 ? "[!!!] RUTA INCOMPLETA (parada en " + destAlcanzado + ")"
@@ -408,7 +433,7 @@ public class Simulador {
                                 h, m, lim, ruta.tiempoLlegadaFinal.format(FMT));
                         pw.println("    Ruta:");
                         Map<String, Integer> capVuelosSol   = sol.getEstadoCapacidadesVuelos();
-                        Map<String, Integer> ocupAlmacenSol = sol.getEstadoOcupacionAlmacenes();
+                        Map<String, int[]> ocupAlmacenSol = sol.getEstadoOcupacionAlmacenes();
 
                         for (int i = 0; i < ruta.vuelosUsados.size(); i++) {
                             VueloAlgoritmo v     = ruta.vuelosUsados.get(i);
@@ -418,15 +443,12 @@ public class Simulador {
                                     + "-" + v.getHoraSalida() + "-" + salida.toLocalDate();
                             int capUsada = capVuelosSol.getOrDefault(claveV, 0);
 
-                            String claveA  = v.getOrigenOaci()
-                                    + "-" + salida.toLocalDate()
-                                    + "-" + salida.getHour();
-                            int usoAlmacen = ocupAlmacenSol.getOrDefault(claveA, 0);
+                            int usoAlmacen = getOcupacionExactaAlmacen(v.getOrigenOaci(), salida, ocupAlmacenSol);
 
                             AeropuertoAlgoritmo aero = mapaAeropuertos.get(v.getOrigenOaci());
                             int capAlmacen = aero != null ? aero.getCapacidadAlmacen() : 0;
 
-                            pw.printf("      (%d) %s -> %s | Salida: %s | Llegada: %s | Vuelo: %d/%d | Almacén %s: %d/%d%n",
+                            pw.printf("      (%d) %s -> %s | Salida: %s | Llegada: %s | Vuelo: %3d/%3d | Almacén %s: %3d/%3d%n",
                                     i + 1,
                                     v.getOrigenOaci(), v.getDestinoOaci(),
                                     salida.toLocalTime(), v.getHoraLlegada(),
@@ -436,24 +458,31 @@ public class Simulador {
                     }
                     pw.println();
                 }
+                sumaSLA += sol.getPromedioConsumoSLA()*enviosATiempoLocal;
             }
 
+            double slaGlobal  = enviosATiempo > 0 ? sumaSLA        / enviosATiempo : 0;
+            double almGlobal  = sumaCapacidadesAlmacen > 0 ? sumaOcupAlmacenes    / sumaCapacidadesAlmacen : 0;
+
             // --- Resumen estadístico ---
-            pw.println("=".repeat(90));
+            pw.println("=".repeat(100));
             pw.println("  RESUMEN ESTADÍSTICO");
-            pw.println("=".repeat(90));
-            pw.printf("  Total bloques procesados : %d%n",    totalBloques);
-            pw.printf("  Total envíos procesados  : %d%n",    totalEnvios);
-            pw.printf("  Total maletas procesadas : %d%n",    totalMaletas);
-            pw.printf("  Envíos con ruta          : %d%n",    enviosConRuta);
-            pw.printf("  Envíos sin ruta          : %d%n",    enviosSinRuta);
-            pw.printf("  Envíos a tiempo (SLA OK) : %d%n",    enviosATiempo);
-            pw.printf("  Envíos en colapso        : %d%n",    enviosColapso);
+            pw.println("=".repeat(100));
+            pw.printf("  Total bloques procesados      : %d%n",    totalBloques);
+            pw.printf("  Total envíos procesados       : %d%n",    totalEnvios);
+            pw.printf("  Total maletas procesadas      : %d%n",    totalMaletas);
+            pw.printf("  Envíos con ruta               : %d%n",    enviosConRuta);
+            pw.printf("  Envíos sin ruta               : %d%n",    enviosSinRuta);
+            pw.printf("  Envíos a tiempo (SLA OK)      : %d%n",    enviosATiempo);
+            pw.printf("  Envíos en colapso             : %d%n",    enviosColapso);
+            pw.printf("  Promedio consumo SLA global   : %.4f%%%n", slaGlobal);
+            pw.printf("  Ocupación vuelos global       : %.4f%%%n", ocupacionVuelosGlobal  * 100);
+            pw.printf("  Ocupación almacenes global    : %.4f%%%n", almGlobal  * 100);
             if (totalEnvios > 0)
                 pw.printf("  Tasa de éxito            : %.1f%%%n",
                         100.0 * enviosATiempo / totalEnvios);
             pw.printf("  Tiempo total simulación  : %ds%n",   tiempoTotalMs / 1000);
-            pw.println("=".repeat(90));
+            pw.println("=".repeat(100));
 
             System.out.println("\n>> Reporte generado en: " + archivoReporte);
 
@@ -483,4 +512,25 @@ public class Simulador {
         System.out.printf( "  Tiempo total   : %ds%n", tiempoMs / 1000);
         System.out.println("=".repeat(90));
     }
+
+    public static int getOcupacionExactaAlmacen(String oaci, LocalDateTime momento, Map<String, int[]> ocupacionGlobalAlmacenes) {
+        int idx = Main.getIndiceMinuto(momento);
+        int[] global = ocupacionGlobalAlmacenes.get(oaci);
+        return (global != null) ? global[idx-1] : 0;
+    }
+
+    private void prepararIndiceVuelos(List<VueloAlgoritmo> vuelos, LocalDateTime inicio, LocalDateTime fin) {
+        this.indiceVuelosParaMetricas.clear();
+        // Iteramos por cada día desde el inicio hasta el fin de la simulación
+        for (LocalDateTime date = inicio; !date.isAfter(fin); date = date.plusDays(1)) {
+            for (VueloAlgoritmo v : vuelos) {
+                // Generamos la clave canónica que espera el PlanificationSolutionOutput
+                String clave = v.getOrigenOaci() + "-" + v.getDestinoOaci() + "-" + 
+                            v.getHoraSalida() + "-" + date.toLocalDate();
+                
+                this.indiceVuelosParaMetricas.put(clave, v);
+            }
+        }
+    }
+
 }

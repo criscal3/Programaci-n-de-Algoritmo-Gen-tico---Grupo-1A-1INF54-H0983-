@@ -3,11 +3,6 @@ import java.util.List;
 
 /**
  * Resultado de la planificación de ruta para un envío.
- *
- * Además de los vuelos y fechas, guarda snapshots de ocupación
- * en el momento de cada asignación para poder mostrarlos en el reporte:
- *   capacidadUsadaVuelo  → maletas ya asignadas a ese vuelo en ese momento
- *   ocupacionAlmacenOrigen → maletas en el almacén de origen en la hora de salida
  */
 public class ResultadoRuta {
     LocalDateTime           tiempoLlegadaFinal;
